@@ -1,0 +1,197 @@
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.dialog-content {
+    background-color: var(--bg-secondary);
+    padding: 0;
+    border-radius: 12px;
+    width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: scaleIn 0.2s ease-out;
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.dialog-content h2 {
+    margin: 0;
+    padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.dialog-body {
+    padding: var(--spacing-xl);
+    overflow-y: auto;
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color var(--transition-fast);
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+}
+
+.form-section {
+    margin-bottom: var(--spacing-xl);
+    border-top: 1px solid var(--border-color);
+    padding-top: var(--spacing-lg);
+}
+
+.form-section h3 {
+    font-size: 1.1rem;
+    color: var(--accent-primary);
+    margin-bottom: var(--spacing-md);
+    font-weight: 600;
+}
+
+.selection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.selection-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--bg-tertiary);
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+    color: var(--text-secondary);
+}
+
+.selection-item:hover {
+    background-color: #3a3a3a;
+    color: var(--text-primary);
+}
+
+.selection-item.selected {
+    border-color: var(--accent-primary);
+    background-color: rgba(212, 175, 55, 0.15);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.selection-item input {
+    margin-right: 10px;
+    accent-color: var(--accent-primary);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.stat-column h4 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding-bottom: var(--spacing-xs);
+}
+
+.stat-column label {
+    display: block;
+    margin-bottom: 6px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    transition: color var(--transition-fast);
+}
+
+.stat-column label:hover {
+    color: var(--text-primary);
+}
+
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-secondary);
+    border-radius: 0 0 12px 12px;
+    flex-shrink: 0;
+}
+
+.dialog-actions button {
+    padding: 10px 24px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+}
+
+.dialog-actions button:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.dialog-actions button.save-button {
+    background-color: var(--accent-primary);
+    color: #000;
+    border: none;
+    font-weight: 600;
+}
+
+.dialog-actions button.save-button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

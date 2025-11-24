@@ -1,0 +1,192 @@
+.relic-manager-dialog {
+    width: 900px;
+    max-width: 95vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+}
+
+.dialog-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.close-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+}
+
+.close-button:hover {
+    color: var(--text-primary);
+}
+
+.tabs {
+    padding: var(--spacing-md) var(--spacing-md) 0;
+    flex-shrink: 0;
+}
+
+.manager-actions {
+    padding: var(--spacing-md);
+    flex-shrink: 0;
+}
+
+.relic-table-container {
+    flex: 1;
+    overflow-y: auto;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    /* Distinct background for table area */
+    margin: 0 var(--spacing-md) var(--spacing-md);
+    border-radius: var(--radius-sm);
+}
+
+.relic-table {
+    width: 100%;
+    border-collapse: separate;
+    /* Changed to separate for sticky header borders */
+    border-spacing: 0;
+    font-size: 0.95rem;
+}
+
+.relic-table th {
+    background-color: var(--bg-tertiary);
+    /* Darker header */
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.relic-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    color: var(--text-primary);
+}
+
+.relic-table tr:last-child td {
+    border-bottom: none;
+}
+
+.relic-table tr:hover td {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.cell-id {
+    font-family: monospace;
+    color: var(--accent-primary);
+    /* Highlight ID */
+    font-weight: 500;
+}
+
+.cell-name {
+    font-weight: 500;
+}
+
+.cell-group {
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.row-actions {
+    display: flex;
+    gap: 8px;
+    white-space: nowrap;
+    /* Prevent wrapping */
+}
+
+.row-actions button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.edit-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+}
+
+.edit-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.delete-btn {
+    background-color: rgba(255, 69, 58, 0.1);
+    color: #ff453a;
+    border-color: rgba(255, 69, 58, 0.3);
+}
+
+.delete-btn:hover {
+    background-color: rgba(255, 69, 58, 0.2);
+}
+
+.save-btn {
+    background-color: var(--accent-primary);
+    color: var(--bg-primary);
+    border: none;
+    font-weight: 600;
+}
+
+.save-btn:hover {
+    opacity: 0.9;
+}
+
+.cancel-btn {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+}
+
+.cancel-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+/* Edit Mode Styles */
+.relic-table input {
+    width: 100%;
+    padding: 8px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.relic-table input:focus {
+    border-color: var(--accent-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(var(--accent-primary-rgb), 0.2);
+}
+
+.id-static {
+    font-family: monospace;
+    color: var(--text-secondary);
+    padding-left: 8px;
+}
