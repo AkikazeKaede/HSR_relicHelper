@@ -132,15 +132,22 @@ body {
 .main-content {
   flex: 1;
   padding: 0;
-  overflow-y: auto;
   background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
 }
 
 .view-content {
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
   padding: var(--spacing-xl);
   animation: fadeIn 0.3s ease-out;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {

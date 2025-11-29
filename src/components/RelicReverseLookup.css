@@ -4,6 +4,7 @@
     background: var(--border-color);
     margin: var(--spacing-sm) 0;
     opacity: 0.5;
+    flex-shrink: 0;
 }
 
 .reverse-lookup-container {
@@ -72,6 +73,7 @@
     cursor: pointer;
     transition: all var(--transition-fast);
     background-color: var(--bg-secondary);
+    flex-shrink: 0;
 }
 
 .set-accordion:hover {
