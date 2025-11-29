@@ -134,9 +134,13 @@ function App() {
     }
   };
 
-  const handleDeleteCharacter = (id: string) => {
+  const handleDeleteCharacter = (id: string | string[]) => {
     if (confirm('本当に削除しますか？')) {
-      setCharacters(prev => prev.filter(c => c.id !== id));
+      if (Array.isArray(id)) {
+        setCharacters(prev => prev.filter(c => !id.includes(c.id)));
+      } else {
+        setCharacters(prev => prev.filter(c => c.id !== id));
+      }
     }
   };
 

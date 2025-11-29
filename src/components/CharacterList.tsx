@@ -9,7 +9,7 @@ interface CharacterListProps {
     planarSets: RelicSet[];
     onAdd: () => void;
     onEdit: (id: string) => void;
-    onDelete: (id: string) => void;
+    onDelete: (id: string | string[]) => void;
     highlightedCharacterId?: string;
 }
 
@@ -66,6 +66,27 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
             newChecked.add(id);
         }
         setCheckedIds(newChecked);
+    };
+
+    const toggleSelectAll = () => {
+        if (checkedIds.size === characters.length) {
+            setCheckedIds(new Set());
+        } else {
+            setCheckedIds(new Set(characters.map(c => c.id)));
+        }
+    };
+
+    const handleBulkDelete = () => {
+        if (checkedIds.size === 0) return;
+
+        onDelete(Array.from(checkedIds));
+        setCheckedIds(new Set());
+        setMessage({ type: 'success', text: `${checkedIds.size}件のキャラクターを削除しました` });
+
+        // If the currently selected character was deleted, clear selection
+        if (selectedId && checkedIds.has(selectedId)) {
+            setSelectedId(null);
+        }
     };
 
     const handleExport = async () => {
@@ -147,6 +168,17 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                 <div className="header-actions">
                     {selectionMode ? (
                         <>
+                            <div className="selection-controls">
+                                <label className="select-all-label">
+                                    <input
+                                        type="checkbox"
+                                        checked={characters.length > 0 && checkedIds.size === characters.length}
+                                        onChange={toggleSelectAll}
+                                    />
+                                    すべて選択
+                                </label>
+                            </div>
+                            <button className="action-button danger" onClick={handleBulkDelete} disabled={checkedIds.size === 0}>削除</button>
                             <button className="action-button secondary" onClick={toggleSelectionMode}>キャンセル</button>
                             <button className="action-button primary" onClick={handleExport}>選択をエクスポート</button>
                         </>
