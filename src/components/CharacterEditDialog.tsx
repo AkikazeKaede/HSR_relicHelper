@@ -44,7 +44,7 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
     const handleRemove = (index: number) => {
         const newStats = [...selectedStats];
         newStats.splice(index, 1);
-        
+
         // If we removed the first item, ensure the new first item has '-' operator
         if (newStats.length > 0 && index === 0) {
             newStats[0].operator = '-';
@@ -79,14 +79,14 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
         // First item always '-', others keep their operator or default to '>'? 
         // User probably expects the operator to move with the item, BUT first item rule is strict.
         if (newStats.length > 0) {
-             newStats[0].operator = '-';
-             // If the item that moved to index 0 had an operator, it's gone now.
-             // If index 0 moved elsewhere, it needs an operator now.
-             for (let i = 1; i < newStats.length; i++) {
-                 if (newStats[i].operator === '-') {
-                     newStats[i].operator = '>';
-                 }
-             }
+            newStats[0].operator = '-';
+            // If the item that moved to index 0 had an operator, it's gone now.
+            // If index 0 moved elsewhere, it needs an operator now.
+            for (let i = 1; i < newStats.length; i++) {
+                if (newStats[i].operator === '-') {
+                    newStats[i].operator = '>';
+                }
+            }
         }
 
         dragItem.current = null;
@@ -97,12 +97,12 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
     return (
         <div className="priority-selector">
             <h4>{title}</h4>
-            
+
             {/* Selected List (Draggable) */}
             <div className="selected-stats-list">
                 {selectedStats.length === 0 && <div className="empty-selection-msg">ステータスを選択してください</div>}
                 {selectedStats.map((item, index) => (
-                    <div 
+                    <div
                         key={`${item.stat}-${index}`}
                         className="priority-item"
                         draggable
@@ -120,7 +120,7 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
                         onDragOver={(e) => e.preventDefault()}
                     >
                         {/* Operator Badge */}
-                        <div 
+                        <div
                             className={`operator-badge ${index === 0 ? 'hidden' : 'clickable'}`}
                             onClick={() => toggleOperator(index)}
                             title={index === 0 ? "" : "クリックで変更 ( > / >= / = )"}
@@ -140,8 +140,8 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
             {/* Available Pool */}
             <div className="available-stats-pool">
                 {unselectedStats.map(stat => (
-                    <button 
-                        key={stat} 
+                    <button
+                        key={stat}
                         className="pool-item"
                         onClick={() => handleAdd(stat)}
                     >
@@ -160,7 +160,7 @@ export const CharacterEditDialog: React.FC<CharacterEditDialogProps> = ({ isOpen
     const [name, setName] = useState('');
     const [targetRelicSets, setTargetRelicSets] = useState<string[]>([]);
     const [targetPlanarSets, setTargetPlanarSets] = useState<string[]>([]);
-    
+
     // Updated State for WeightedStat
     const [mainStats, setMainStats] = useState<CharacterFilter['mainStats']>({
         body: [], feet: [], planarSphere: [], linkRope: []
@@ -216,93 +216,87 @@ export const CharacterEditDialog: React.FC<CharacterEditDialogProps> = ({ isOpen
             <div className="dialog-content wide-dialog">
                 <h2>{initialData ? 'キャラクター編集' : 'キャラクター追加'}</h2>
 
-                <div className="dialog-body two-column-layout">
-                    {/* Left Column: Basic Info & Sets */}
-                    <div className="column-left">
-                        <div className="form-group">
-                            <label>キャラクター名</label>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={e => setName(e.target.value)}
-                                placeholder="名前を入力"
-                            />
-                        </div>
+                <div className="dialog-body">
+                    <div className="form-group">
+                        <label>キャラクター名</label>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={e => setName(e.target.value)}
+                            placeholder="名前を入力"
+                        />
+                    </div>
 
-                        <div className="form-section">
-                            <h3>トンネル遺物</h3>
-                            <div className="selection-grid">
-                                {relicSets.map(set => (
-                                    <label key={set.id} className={`selection-item ${targetRelicSets.includes(set.id) ? 'selected' : ''}`}>
-                                        <input
-                                            type="checkbox"
-                                            checked={targetRelicSets.includes(set.id)}
-                                            onChange={() => toggleSelection(targetRelicSets, set.id, setTargetRelicSets)}
-                                        />
-                                        {set.name}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="form-section">
-                            <h3>次元界オーナメント</h3>
-                            <div className="selection-grid">
-                                {planarSets.map(set => (
-                                    <label key={set.id} className={`selection-item ${targetPlanarSets.includes(set.id) ? 'selected' : ''}`}>
-                                        <input
-                                            type="checkbox"
-                                            checked={targetPlanarSets.includes(set.id)}
-                                            onChange={() => toggleSelection(targetPlanarSets, set.id, setTargetPlanarSets)}
-                                        />
-                                        {set.name}
-                                    </label>
-                                ))}
-                            </div>
+                    <div className="form-section">
+                        <h3>トンネル遺物</h3>
+                        <div className="selection-grid">
+                            {relicSets.map(set => (
+                                <label key={set.id} className={`selection-item ${targetRelicSets.includes(set.id) ? 'selected' : ''}`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={targetRelicSets.includes(set.id)}
+                                        onChange={() => toggleSelection(targetRelicSets, set.id, setTargetRelicSets)}
+                                    />
+                                    {set.name}
+                                </label>
+                            ))}
                         </div>
                     </div>
 
-                    {/* Right Column: Stats Priority */}
-                    <div className="column-right">
-                        <div className="form-section">
-                            <h3>メインステータス優先度</h3>
-                            <div className="main-stats-grid">
-                                <PriorityStatSelector 
-                                    title="胴"
-                                    availableStats={MainStats.Body}
-                                    selectedStats={mainStats.body}
-                                    onChange={(stats) => setMainStats({...mainStats, body: stats})}
-                                />
-                                <PriorityStatSelector 
-                                    title="脚"
-                                    availableStats={MainStats.Feet}
-                                    selectedStats={mainStats.feet}
-                                    onChange={(stats) => setMainStats({...mainStats, feet: stats})}
-                                />
-                                <PriorityStatSelector 
-                                    title="オーブ"
-                                    availableStats={MainStats.PlanarSphere}
-                                    selectedStats={mainStats.planarSphere}
-                                    onChange={(stats) => setMainStats({...mainStats, planarSphere: stats})}
-                                />
-                                <PriorityStatSelector 
-                                    title="縄"
-                                    availableStats={MainStats.LinkRope}
-                                    selectedStats={mainStats.linkRope}
-                                    onChange={(stats) => setMainStats({...mainStats, linkRope: stats})}
-                                />
-                            </div>
+                    <div className="form-section">
+                        <h3>次元界オーナメント</h3>
+                        <div className="selection-grid">
+                            {planarSets.map(set => (
+                                <label key={set.id} className={`selection-item ${targetPlanarSets.includes(set.id) ? 'selected' : ''}`}>
+                                    <input
+                                        type="checkbox"
+                                        checked={targetPlanarSets.includes(set.id)}
+                                        onChange={() => toggleSelection(targetPlanarSets, set.id, setTargetPlanarSets)}
+                                    />
+                                    {set.name}
+                                </label>
+                            ))}
                         </div>
+                    </div>
 
-                        <div className="form-section">
-                            <h3>サブステータス優先度</h3>
-                            <PriorityStatSelector 
-                                title="サブステータス"
-                                availableStats={ALL_SUB_STATS}
-                                selectedStats={subStats}
-                                onChange={setSubStats}
+                    <div className="form-section">
+                        <h3>メインステータス優先度</h3>
+                        <div className="main-stats-grid">
+                            <PriorityStatSelector
+                                title="胴"
+                                availableStats={MainStats.Body}
+                                selectedStats={mainStats.body}
+                                onChange={(stats) => setMainStats({ ...mainStats, body: stats })}
+                            />
+                            <PriorityStatSelector
+                                title="脚"
+                                availableStats={MainStats.Feet}
+                                selectedStats={mainStats.feet}
+                                onChange={(stats) => setMainStats({ ...mainStats, feet: stats })}
+                            />
+                            <PriorityStatSelector
+                                title="オーブ"
+                                availableStats={MainStats.PlanarSphere}
+                                selectedStats={mainStats.planarSphere}
+                                onChange={(stats) => setMainStats({ ...mainStats, planarSphere: stats })}
+                            />
+                            <PriorityStatSelector
+                                title="縄"
+                                availableStats={MainStats.LinkRope}
+                                selectedStats={mainStats.linkRope}
+                                onChange={(stats) => setMainStats({ ...mainStats, linkRope: stats })}
                             />
                         </div>
+                    </div>
+
+                    <div className="form-section">
+                        <h3>サブステータス優先度</h3>
+                        <PriorityStatSelector
+                            title="サブステータス"
+                            availableStats={ALL_SUB_STATS}
+                            selectedStats={subStats}
+                            onChange={setSubStats}
+                        />
                     </div>
                 </div>
 
