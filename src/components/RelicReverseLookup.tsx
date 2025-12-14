@@ -109,7 +109,7 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     // 順序に関係なく一貫したグループ化を保証するためにサブステータスをソート
                     const sortedSubStats = [...char.subStats].sort();
                     const subStatLabel = sortedSubStats.length > 0
-                        ? sortedSubStats.map(s => STAT_LABELS[s]).join(', ')
+                        ? sortedSubStats.map(s => STAT_LABELS[s]).join(' / ')
                         : '指定なし';
 
                     if (!subStatMap[subStatLabel]) subStatMap[subStatLabel] = [];

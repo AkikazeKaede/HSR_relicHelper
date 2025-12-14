@@ -281,7 +281,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                         <span className="label">胴:</span>
                                         <span className="value">
                                             {selectedCharacter.mainStats.body.length > 0
-                                                ? selectedCharacter.mainStats.body.map(s => STAT_LABELS[s]).join(', ')
+                                                ? selectedCharacter.mainStats.body.map(s => STAT_LABELS[s]).join(' / ')
                                                 : '指定なし'}
                                         </span>
                                     </div>
@@ -289,7 +289,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                         <span className="label">脚:</span>
                                         <span className="value">
                                             {selectedCharacter.mainStats.feet.length > 0
-                                                ? selectedCharacter.mainStats.feet.map(s => STAT_LABELS[s]).join(', ')
+                                                ? selectedCharacter.mainStats.feet.map(s => STAT_LABELS[s]).join(' / ')
                                                 : '指定なし'}
                                         </span>
                                     </div>
@@ -297,7 +297,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                         <span className="label">オーブ:</span>
                                         <span className="value">
                                             {selectedCharacter.mainStats.planarSphere.length > 0
-                                                ? selectedCharacter.mainStats.planarSphere.map(s => STAT_LABELS[s]).join(', ')
+                                                ? selectedCharacter.mainStats.planarSphere.map(s => STAT_LABELS[s]).join(' / ')
                                                 : '指定なし'}
                                         </span>
                                     </div>
@@ -305,7 +305,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                         <span className="label">縄:</span>
                                         <span className="value">
                                             {selectedCharacter.mainStats.linkRope.length > 0
-                                                ? selectedCharacter.mainStats.linkRope.map(s => STAT_LABELS[s]).join(', ')
+                                                ? selectedCharacter.mainStats.linkRope.map(s => STAT_LABELS[s]).join(' / ')
                                                 : '指定なし'}
                                         </span>
                                     </div>
