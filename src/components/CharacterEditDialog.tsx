@@ -22,35 +22,34 @@ interface PriorityStatSelectorProps {
     availableStats: StatType[];
     selectedStats: WeightedStat[];
     onChange: (stats: WeightedStat[]) => void;
-    title: string;
+    title?: string;
 }
 
 const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableStats, selectedStats, onChange, title }) => {
     const dragItem = useRef<number | null>(null);
     const dragOverItem = useRef<number | null>(null);
 
-    // Filter out stats that are already selected
-    const unselectedStats = availableStats.filter(s => !selectedStats.some(ws => ws.stat === s));
+    const handleToggle = (stat: StatType) => {
+        const existingIndex = selectedStats.findIndex(s => s.stat === stat);
 
-    const handleAdd = (stat: StatType) => {
-        // Add new item with default operator '>' (or '-' if first)
-        const newItem: WeightedStat = {
-            stat,
-            operator: selectedStats.length === 0 ? '-' : '>'
-        };
-        onChange([...selectedStats, newItem]);
-    };
+        if (existingIndex >= 0) {
+            // Remove
+            const newStats = [...selectedStats];
+            newStats.splice(existingIndex, 1);
 
-    const handleRemove = (index: number) => {
-        const newStats = [...selectedStats];
-        newStats.splice(index, 1);
-
-        // If we removed the first item, ensure the new first item has '-' operator
-        if (newStats.length > 0 && index === 0) {
-            newStats[0].operator = '-';
+            // If we removed the first item, ensure the new first item has '-' operator
+            if (newStats.length > 0 && existingIndex === 0) {
+                newStats[0].operator = '-';
+            }
+            onChange(newStats);
+        } else {
+            // Add
+            const newItem: WeightedStat = {
+                stat,
+                operator: selectedStats.length === 0 ? '-' : '>'
+            };
+            onChange([...selectedStats, newItem]);
         }
-
-        onChange(newStats);
     };
 
     const toggleOperator = (index: number) => {
@@ -76,12 +75,8 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
         newStats.splice(dragOverItem.current, 0, draggedItemContent);
 
         // Reset operators logic after reorder
-        // First item always '-', others keep their operator or default to '>'? 
-        // User probably expects the operator to move with the item, BUT first item rule is strict.
         if (newStats.length > 0) {
             newStats[0].operator = '-';
-            // If the item that moved to index 0 had an operator, it's gone now.
-            // If index 0 moved elsewhere, it needs an operator now.
             for (let i = 1; i < newStats.length; i++) {
                 if (newStats[i].operator === '-') {
                     newStats[i].operator = '>';
@@ -96,7 +91,7 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
 
     return (
         <div className="priority-selector">
-            <h4>{title}</h4>
+            {title && <h4>{title}</h4>}
 
             {/* Selected List (Draggable) */}
             <div className="selected-stats-list">
@@ -114,7 +109,7 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
                             dragOverItem.current = index;
                             if (dragItem.current !== null && dragItem.current !== index) {
                                 handleSort();
-                                dragItem.current = index; // Update dragItem to new index to prevent continuous swapping
+                                dragItem.current = index;
                             }
                         }}
                         onDragOver={(e) => e.preventDefault()}
@@ -131,26 +126,24 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
                         <span className="stat-label">
                             {STAT_LABELS[item.stat]}
                         </span>
-
-                        <button className="remove-btn" onClick={() => handleRemove(index)} title="削除">×</button>
                     </div>
                 ))}
             </div>
 
             {/* Available Pool */}
             <div className="available-stats-pool">
-                {unselectedStats.map(stat => (
-                    <button
-                        key={stat}
-                        className="pool-item"
-                        onClick={() => handleAdd(stat)}
-                    >
-                        + {STAT_LABELS[stat]}
-                    </button>
-                ))}
-                {unselectedStats.length === 0 && selectedStats.length > 0 && (
-                    <div className="pool-empty-msg">全てのステータスを選択済み</div>
-                )}
+                {availableStats.map(stat => {
+                    const isSelected = selectedStats.some(s => s.stat === stat);
+                    return (
+                        <button
+                            key={stat}
+                            className={`pool-item ${isSelected ? 'selected' : ''}`}
+                            onClick={() => handleToggle(stat)}
+                        >
+                            {STAT_LABELS[stat]}
+                        </button>
+                    );
+                })}
             </div>
         </div>
     );
@@ -292,7 +285,6 @@ export const CharacterEditDialog: React.FC<CharacterEditDialogProps> = ({ isOpen
                     <div className="form-section">
                         <h3>サブステータス優先度</h3>
                         <PriorityStatSelector
-                            title="サブステータス"
                             availableStats={ALL_SUB_STATS}
                             selectedStats={subStats}
                             onChange={setSubStats}
