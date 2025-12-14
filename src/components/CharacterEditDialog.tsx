@@ -105,7 +105,7 @@ const PriorityStatSelector: React.FC<PriorityStatSelectorProps> = ({ availableSt
                             dragItem.current = index;
                             e.dataTransfer.effectAllowed = "move";
                         }}
-                        onDragEnter={(e) => {
+                        onDragEnter={(_) => {
                             dragOverItem.current = index;
                             if (dragItem.current !== null && dragItem.current !== index) {
                                 handleSort();
