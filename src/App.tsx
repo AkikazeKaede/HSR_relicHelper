@@ -220,6 +220,7 @@ function App() {
               onDelete={handleDeleteCharacter}
               highlightedCharacterId={highlightedCharacterId}
               onImport={handleAppendData}
+              onReorder={setCharacters}
             />
             <CharacterEditDialog
               isOpen={isDialogOpen}

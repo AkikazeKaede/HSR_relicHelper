@@ -282,3 +282,33 @@
     text-align: center;
     color: var(--text-muted);
 }
+
+/* Reorder & Drag Styles */
+.reorder-controls-info {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.character-list-item.draggable {
+    cursor: grab;
+}
+
+.character-list-item.draggable:active {
+    cursor: grabbing;
+}
+
+.drag-handle {
+    margin-right: var(--spacing-md);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    cursor: grab;
+    transition: color var(--transition-fast);
+}
+
+.character-list-item.draggable:hover .drag-handle {
+    color: var(--text-primary);
+}

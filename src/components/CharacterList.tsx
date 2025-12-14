@@ -11,15 +11,21 @@ interface CharacterListProps {
     onEdit: (id: string) => void;
     onDelete: (id: string | string[]) => void;
     highlightedCharacterId?: string;
+    onReorder: (newOrder: CharacterFilter[]) => void;
 }
 
-export const CharacterList: React.FC<CharacterListProps & { onImport: (data: CharacterFilter[]) => void }> = ({ characters, relicSets, planarSets, onAdd, onEdit, onDelete, highlightedCharacterId, onImport }) => {
+export const CharacterList: React.FC<CharacterListProps & { onImport: (data: CharacterFilter[]) => void }> = ({ characters, relicSets, planarSets, onAdd, onEdit, onDelete, highlightedCharacterId, onImport, onReorder }) => {
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectionMode, setSelectionMode] = useState(false);
+    const [reorderMode, setReorderMode] = useState(false);
     const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const listRef = useRef<HTMLDivElement>(null);
     const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+    // Drag & Drop refs
+    const dragItem = useRef<number | null>(null);
+    const dragOverItem = useRef<number | null>(null);
 
     // 外部からのナビゲーション（ハイライト）を処理
     useEffect(() => {
@@ -54,8 +60,67 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
 
     const toggleSelectionMode = () => {
         setSelectionMode(!selectionMode);
+        setReorderMode(false);
         setCheckedIds(new Set());
         setMessage(null);
+    };
+
+    const toggleReorderMode = () => {
+        setReorderMode(!reorderMode);
+        setSelectionMode(false);
+        setMessage(null);
+    };
+
+    const handleSort = () => {
+        if (dragItem.current === null || dragOverItem.current === null) return;
+        
+        // Create a deep copy of the array to modify
+        const _characters = [...characters];
+        
+        // Remove the dragged item
+        const draggedItemContent = _characters.splice(dragItem.current, 1)[0];
+        
+        // Insert it at the new position
+        _characters.splice(dragOverItem.current, 0, draggedItemContent);
+        
+        // Update refs
+        dragItem.current = dragOverItem.current;
+        dragOverItem.current = null;
+        
+        // Update state
+        onReorder(_characters);
+    };
+
+    const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+        dragItem.current = index;
+        e.dataTransfer.effectAllowed = "move";
+        // Ghost image setting if needed
+        // const ghost = e.currentTarget.cloneNode(true) as HTMLElement;
+        // ghost.style.opacity = "1";
+        // document.body.appendChild(ghost);
+        // e.dataTransfer.setDragImage(ghost, 0, 0);
+    };
+
+    const onDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+        if (dragItem.current === null) return;
+        dragOverItem.current = index;
+        
+        // Optional: Live reordering visuals (requires careful state management)
+        // For simple list, we can just highlight the target or actually swap
+        // Let's try attempting swap here for better UX, but usually 'dragOver' is where you detect position
+        
+        if (dragItem.current !== index) {
+             handleSort();
+        }
+    };
+
+    const onDragEnd = () => {
+        dragItem.current = null;
+        dragOverItem.current = null;
+    };
+
+    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault(); // Necessary to allow dropping
     };
 
     const toggleCheck = (id: string) => {
@@ -182,9 +247,17 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                             <button className="action-button secondary" onClick={toggleSelectionMode}>キャンセル</button>
                             <button className="action-button primary" onClick={handleExport}>選択をエクスポート</button>
                         </>
+                    ) : reorderMode ? (
+                        <>
+                             <div className="reorder-controls-info">
+                                ドラッグして並び替え
+                            </div>
+                            <button className="action-button primary" onClick={toggleReorderMode}>並び替え完了</button>
+                        </>
                     ) : (
                         <>
                             <button className="action-button secondary" onClick={handleImport}>インポート</button>
+                            <button className="action-button secondary" onClick={toggleReorderMode}>並び替え</button>
                             <button className="action-button secondary" onClick={toggleSelectionMode}>選択 / エクスポート</button>
                             <button className="add-button" onClick={onAdd}>+ 新規登録</button>
                         </>
@@ -204,19 +277,33 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                     {characters.length === 0 ? (
                         <div className="empty-state">キャラクターが登録されていません</div>
                     ) : (
-                        characters.map(char => (
+                        characters.map((char, index) => (
                             <div
                                 key={char.id}
                                 ref={el => { itemRefs.current[char.id] = el; }}
-                                className={`character-list-item ${selectedId === char.id ? 'selected' : ''}`}
+                                className={`character-list-item ${selectedId === char.id ? 'selected' : ''} ${reorderMode ? 'draggable' : ''}`}
+                                draggable={reorderMode}
+                                onDragStart={(e) => onDragStart(e, index)}
+                                onDragEnter={(e) => onDragEnter(e, index)}
+                                onDragEnd={onDragEnd}
+                                onDragOver={onDragOver}
                                 onClick={() => {
                                     if (selectionMode) {
                                         toggleCheck(char.id);
-                                    } else {
+                                    } else if (!reorderMode) {
                                         setSelectedId(char.id);
                                     }
                                 }}
                             >
+                                {reorderMode && (
+                                    <div className="drag-handle" title="ドラッグして移動">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                                        </svg>
+                                    </div>
+                                )}
                                 {selectionMode && (
                                     <input
                                         type="checkbox"
