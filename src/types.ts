@@ -22,6 +22,13 @@ export interface RelicSet {
     group?: number; // For grouping by Cavern/World
 }
 
+export type StatOperator = '>' | '>=' | '=' | '-';
+
+export interface WeightedStat {
+    stat: StatType;
+    operator: StatOperator;
+}
+
 export interface CharacterFilter {
     id: string;
     characterName: string;
@@ -35,14 +42,25 @@ export interface CharacterFilter {
 
     // Target Main Stats per slot
     mainStats: {
+        body: WeightedStat[];
+        feet: WeightedStat[];
+        planarSphere: WeightedStat[];
+        linkRope: WeightedStat[];
+    };
+
+    // Target Sub Stats (Ordered list with operators)
+    subStats: WeightedStat[];
+
+    note?: string;
+}
+
+// For migration purposes
+export interface LegacyCharacterFilter extends Omit<CharacterFilter, 'mainStats' | 'subStats'> {
+    mainStats: {
         body: StatType[];
         feet: StatType[];
         planarSphere: StatType[];
         linkRope: StatType[];
     };
-
-    // Target Sub Stats (Unordered set)
     subStats: StatType[];
-
-    note?: string;
 }
