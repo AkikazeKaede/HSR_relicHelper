@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import type { CharacterFilter, StatType, RelicSet } from '../types';
+import type { CharacterFilter, RelicSet } from '../types';
 import { STAT_LABELS } from '../constants';
 import './RelicReverseLookup.css';
 
@@ -78,27 +78,27 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     // 1. メインステータスの内訳
                     if (activeTab === 'Cavern') {
                         // Body
-                        char.mainStats.body.forEach(stat => {
-                            const label = STAT_LABELS[stat as StatType];
+                        char.mainStats.body.forEach(item => {
+                            const label = STAT_LABELS[item.stat];
                             if (!slotMap['胴体'][label]) slotMap['胴体'][label] = [];
                             slotMap['胴体'][label].push(char.characterName);
                         });
                         // Feet
-                        char.mainStats.feet.forEach(stat => {
-                            const label = STAT_LABELS[stat as StatType];
+                        char.mainStats.feet.forEach(item => {
+                            const label = STAT_LABELS[item.stat];
                             if (!slotMap['脚部'][label]) slotMap['脚部'][label] = [];
                             slotMap['脚部'][label].push(char.characterName);
                         });
                     } else {
                         // Sphere
-                        char.mainStats.planarSphere.forEach(stat => {
-                            const label = STAT_LABELS[stat as StatType];
+                        char.mainStats.planarSphere.forEach(item => {
+                            const label = STAT_LABELS[item.stat];
                             if (!slotMap['次元界オーブ'][label]) slotMap['次元界オーブ'][label] = [];
                             slotMap['次元界オーブ'][label].push(char.characterName);
                         });
                         // Rope
-                        char.mainStats.linkRope.forEach(stat => {
-                            const label = STAT_LABELS[stat as StatType];
+                        char.mainStats.linkRope.forEach(item => {
+                            const label = STAT_LABELS[item.stat];
                             if (!slotMap['連結縄'][label]) slotMap['連結縄'][label] = [];
                             slotMap['連結縄'][label].push(char.characterName);
                         });
@@ -107,7 +107,7 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     // 2. サブステータスの内訳
                     // サブステータスのユニークな組み合わせでグループ化
                     // 順序に関係なく一貫したグループ化を保証するためにサブステータスをソート
-                    const sortedSubStats = [...char.subStats].sort();
+                    const sortedSubStats = char.subStats.map(s => s.stat).sort();
                     const subStatLabel = sortedSubStats.length > 0
                         ? sortedSubStats.map(s => STAT_LABELS[s]).join(' / ')
                         : '指定なし';

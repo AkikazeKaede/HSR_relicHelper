@@ -4,7 +4,7 @@ import { CharacterList } from './components/CharacterList';
 import { CharacterEditDialog } from './components/CharacterEditDialog';
 import { RelicReverseLookup } from './components/RelicReverseLookup';
 import { Settings } from './components/Settings';
-import type { CharacterFilter, RelicSet } from './types';
+import type { CharacterFilter, RelicSet, WeightedStat, LegacyCharacterFilter } from './types';
 
 type View = 'filter' | 'reverse' | 'settings';
 
@@ -17,12 +17,17 @@ const initialCharacters: CharacterFilter[] = [
     targetRelicSets: ['Musketeer', 'Wastelander'],
     targetPlanarSets: ['Rutilant'],
     mainStats: {
-      body: ['CritRate', 'CritDMG'],
-      feet: ['Attack', 'Speed'],
-      planarSphere: ['ImaginaryDMG', 'Attack'],
-      linkRope: ['Attack', 'EnergyRegenRate']
+      body: [{ stat: 'CritRate', operator: '-' }, { stat: 'CritDMG', operator: '>' }],
+      feet: [{ stat: 'Attack', operator: '-' }, { stat: 'Speed', operator: '>' }],
+      planarSphere: [{ stat: 'ImaginaryDMG', operator: '-' }, { stat: 'Attack', operator: '>' }],
+      linkRope: [{ stat: 'Attack', operator: '-' }, { stat: 'EnergyRegenRate', operator: '>' }]
     },
-    subStats: ['CritRate', 'CritDMG', 'Attack', 'Speed']
+    subStats: [
+      { stat: 'CritRate', operator: '-' },
+      { stat: 'CritDMG', operator: '>' },
+      { stat: 'Attack', operator: '>' },
+      { stat: 'Speed', operator: '>' }
+    ]
   }
 ];
 
@@ -48,7 +53,8 @@ function App() {
         if (charResult.success && charResult.data) {
           const parsed = JSON.parse(charResult.data);
           if (Array.isArray(parsed)) {
-            setCharacters(parsed);
+            const migrated = parsed.map((char: any) => migrateCharacterData(char));
+            setCharacters(migrated);
           }
         }
 
@@ -170,7 +176,45 @@ function App() {
   };
 
   const handleAppendData = (data: CharacterFilter[]) => {
-    setCharacters(prev => [...prev, ...data]);
+    // インポート時も念のためマイグレーションを通す（型が合っていればそのまま返る）
+    const migrated = data.map((char: any) => migrateCharacterData(char));
+    setCharacters(prev => [...prev, ...migrated]);
+  };
+
+  const migrateCharacterData = (char: any): CharacterFilter => {
+    // 既に新しい形式ならそのまま
+    if (char.subStats && char.subStats.length > 0 && typeof char.subStats[0] === 'object' && 'operator' in char.subStats[0]) {
+      return char as CharacterFilter;
+    }
+
+    // 古い形式からの変換
+    const legacy = char as LegacyCharacterFilter;
+    const convertToWeighted = (stats: any[]): WeightedStat[] => {
+      return stats.map((stat, index) => ({
+        stat: stat as any,
+        operator: index === 0 ? '-' : '>'
+      }));
+    };
+
+    return {
+      ...legacy,
+      mainStats: {
+        body: ConvertMainStats(legacy.mainStats.body),
+        feet: ConvertMainStats(legacy.mainStats.feet),
+        planarSphere: ConvertMainStats(legacy.mainStats.planarSphere),
+        linkRope: ConvertMainStats(legacy.mainStats.linkRope)
+      },
+      subStats: convertToWeighted(legacy.subStats)
+    };
+  };
+
+  const ConvertMainStats = (stats: any): WeightedStat[] => {
+      // 過去データでmainStatsが存在しない、あるいは配列でない場合のガード
+      if (!Array.isArray(stats)) return [];
+      return stats.map((stat, index) => ({
+          stat: stat as any,
+          operator: index === 0 ? '-' : '>'
+      }));
   };
 
   return (

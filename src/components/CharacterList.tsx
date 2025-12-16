@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import type { CharacterFilter, RelicSet } from '../types';
+import type { CharacterFilter, RelicSet, WeightedStat } from '../types';
 import { STAT_LABELS } from '../constants';
 import './CharacterList.css';
 
@@ -13,6 +13,21 @@ interface CharacterListProps {
     highlightedCharacterId?: string;
     onReorder: (newOrder: CharacterFilter[]) => void;
 }
+
+const renderWeightedStats = (stats: WeightedStat[]): React.ReactNode => {
+    if (!stats || stats.length === 0) return '指定なし';
+    
+    return (
+        <span className="weighted-stats">
+            {stats.map((ws, i) => (
+                <span key={i} className="weighted-stat-item">
+                    {i > 0 && <span className="stat-operator"> {ws.operator} </span>}
+                    {STAT_LABELS[ws.stat]}
+                </span>
+            ))}
+        </span>
+    );
+};
 
 export const CharacterList: React.FC<CharacterListProps & { onImport: (data: CharacterFilter[]) => void }> = ({ characters, relicSets, planarSets, onAdd, onEdit, onDelete, highlightedCharacterId, onImport, onReorder }) => {
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -367,33 +382,25 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                     <div className="stat-row-vertical">
                                         <span className="label">胴:</span>
                                         <span className="value">
-                                            {selectedCharacter.mainStats.body.length > 0
-                                                ? selectedCharacter.mainStats.body.map(s => STAT_LABELS[s]).join(' / ')
-                                                : '指定なし'}
+                                            {renderWeightedStats(selectedCharacter.mainStats.body)}
                                         </span>
                                     </div>
                                     <div className="stat-row-vertical">
                                         <span className="label">脚:</span>
                                         <span className="value">
-                                            {selectedCharacter.mainStats.feet.length > 0
-                                                ? selectedCharacter.mainStats.feet.map(s => STAT_LABELS[s]).join(' / ')
-                                                : '指定なし'}
+                                            {renderWeightedStats(selectedCharacter.mainStats.feet)}
                                         </span>
                                     </div>
                                     <div className="stat-row-vertical">
                                         <span className="label">オーブ:</span>
                                         <span className="value">
-                                            {selectedCharacter.mainStats.planarSphere.length > 0
-                                                ? selectedCharacter.mainStats.planarSphere.map(s => STAT_LABELS[s]).join(' / ')
-                                                : '指定なし'}
+                                            {renderWeightedStats(selectedCharacter.mainStats.planarSphere)}
                                         </span>
                                     </div>
                                     <div className="stat-row-vertical">
                                         <span className="label">縄:</span>
                                         <span className="value">
-                                            {selectedCharacter.mainStats.linkRope.length > 0
-                                                ? selectedCharacter.mainStats.linkRope.map(s => STAT_LABELS[s]).join(' / ')
-                                                : '指定なし'}
+                                            {renderWeightedStats(selectedCharacter.mainStats.linkRope)}
                                         </span>
                                     </div>
                                 </div>
@@ -402,9 +409,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                             <div className="detail-section">
                                 <h4>サブステータス</h4>
                                 <div className="sub-stats-list">
-                                    {selectedCharacter.subStats.length > 0
-                                        ? selectedCharacter.subStats.map(s => STAT_LABELS[s]).join(' / ')
-                                        : '指定なし'}
+                                    {renderWeightedStats(selectedCharacter.subStats)}
                                 </div>
                             </div>
                         </div>
