@@ -109,7 +109,10 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     // 順序に関係なく一貫したグループ化を保証するためにサブステータスをソート
                     const sortedSubStats = char.subStats.map(s => s.stat).sort();
                     const subStatLabel = sortedSubStats.length > 0
-                        ? sortedSubStats.map(s => STAT_LABELS[s]).join(' / ')
+                        ? sortedSubStats.map(s => {
+                            const label = STAT_LABELS[s];
+                            return label === '会心ダメージ' ? '会心ダメ' : label;
+                        }).join(' / ')
                         : '指定なし';
 
                     if (!subStatMap[subStatLabel]) subStatMap[subStatLabel] = [];
@@ -239,7 +242,18 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                                             <div className="stat-rows">
                                                 {set.subStats.map(statGroup => (
                                                     <div key={statGroup.stat} className="stat-row">
-                                                        <div className="stat-name">{statGroup.stat}</div>
+                                                        <div className="stat-name">
+                                                            {statGroup.stat === '指定なし' ? (
+                                                                <span className="stat-item empty">指定なし</span>
+                                                            ) : (
+                                                                statGroup.stat.split(' / ').map((item, i, arr) => (
+                                                                    <React.Fragment key={i}>
+                                                                        <span className="stat-item">{item}</span>
+                                                                        {i < arr.length - 1 && <span className="stat-separator">/</span>}
+                                                                    </React.Fragment>
+                                                                ))
+                                                            )}
+                                                        </div>
                                                         <div className="char-list">
                                                             {statGroup.characters.map((char, idx) => (
                                                                 <span

@@ -209,12 +209,12 @@ function App() {
   };
 
   const ConvertMainStats = (stats: any): WeightedStat[] => {
-      // 過去データでmainStatsが存在しない、あるいは配列でない場合のガード
-      if (!Array.isArray(stats)) return [];
-      return stats.map((stat, index) => ({
-          stat: stat as any,
-          operator: index === 0 ? '-' : '>'
-      }));
+    // 過去データでmainStatsが存在しない、あるいは配列でない場合のガード
+    if (!Array.isArray(stats)) return [];
+    return stats.map((stat, index) => ({
+      stat: stat as any,
+      operator: index === 0 ? '-' : '>'
+    }));
   };
 
   return (
