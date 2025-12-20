@@ -23,10 +23,15 @@ const createWindow = () => {
 
     // 本番環境ではアプリのindex.htmlを読み込む
     // 開発環境ではViteの開発サーバーURLを読み込む
-    if (process.env.NODE_ENV === 'development') {
+    const isDev = process.env.NODE_ENV === 'development';
+
+    if (isDev) {
         mainWindow.loadURL('http://localhost:5173');
         mainWindow.webContents.openDevTools();
     } else {
+        // メニューバーを完全に無効化（Altキーでも表示されないようにする）
+        // 本番環境のみ適用
+        mainWindow.setMenu(null);
         mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     }
 };
