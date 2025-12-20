@@ -192,9 +192,14 @@
 }
 
 .stat-row.selected {
-    background-color: rgba(212, 175, 55, 0.15);
+    background-color: rgba(212, 175, 55, 0.03);
     /* アクセントカラーの薄い背景 */
     border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.stat-row.dimmed {
+    opacity: 0.3;
+    filter: grayscale(100%);
 }
 
 .stat-name {

@@ -14,6 +14,7 @@ type TabType = 'Cavern' | 'Planar';
 interface StatGroup {
     stat: string;
     characters: string[];
+    isHighlighted?: boolean;
 }
 
 interface SlotGroup {
@@ -169,6 +170,11 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     if (targetStat) {
                         const targetChars = new Set(targetStat.characters);
 
+                        // ハイライトフラグを設定
+                        subStats.forEach(stat => {
+                            stat.isHighlighted = stat.characters.some(char => targetChars.has(char));
+                        });
+
                         subStats.sort((a, b) => {
                             // aのサブステータス行にターゲットキャラが含まれているか
                             const aHasTarget = a.characters.some(char => targetChars.has(char));
@@ -180,6 +186,11 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                             return 0;
                         });
                     }
+                } else {
+                    // 何も選択されていない場合は全てハイライト（通常表示）
+                    subStats.forEach(stat => {
+                        stat.isHighlighted = true;
+                    });
                 }
 
                 data.push({
@@ -297,7 +308,7 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                                             <div className="section-title">サブステータス</div>
                                             <div className="stat-rows">
                                                 {set.subStats.map(statGroup => (
-                                                    <div key={statGroup.stat} className="stat-row">
+                                                    <div key={statGroup.stat} className={`stat-row ${statGroup.isHighlighted === false ? 'dimmed' : ''}`}>
                                                         <div className="stat-name">
                                                             {statGroup.stat === '指定なし' ? (
                                                                 <span className="stat-item empty">指定なし</span>
