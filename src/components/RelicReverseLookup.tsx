@@ -31,9 +31,17 @@ interface SetBreakdown {
     charIdMap?: Record<string, string>;
 }
 
+// 選択されたメインステータスを追跡するための型
+interface SelectedMainStat {
+    slot: string;
+    stat: string;
+}
+
 export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigateToCharacter: (id: string) => void }> = ({ characters, onNavigateToCharacter, relicSets, planarSets }) => {
     const [activeTab, setActiveTab] = useState<TabType>('Cavern');
     const [expandedSets, setExpandedSets] = useState<Set<string>>(new Set());
+    // 各遺物セットごとの選択されたメインステータスを管理するState
+    const [selectedMainStats, setSelectedMainStats] = useState<Record<string, SelectedMainStat | null>>({});
 
     const toggleSet = (setId: string) => {
         const newExpanded = new Set(expandedSets);
@@ -43,6 +51,23 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
             newExpanded.add(setId);
         }
         setExpandedSets(newExpanded);
+    };
+
+    const handleMainStatClick = (setId: string, slotName: string, statName: string) => {
+        setSelectedMainStats(prev => {
+            const currentSelection = prev[setId];
+            // 既に同じものが選択されている場合は解除
+            if (currentSelection?.slot === slotName && currentSelection?.stat === statName) {
+                const newState = { ...prev };
+                delete newState[setId];
+                return newState;
+            }
+            // 新しい選択をセット
+            return {
+                ...prev,
+                [setId]: { slot: slotName, stat: statName }
+            };
+        });
     };
 
     const targetSets = activeTab === 'Cavern' ? relicSets : planarSets;
@@ -130,10 +155,32 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     }))
                 }));
 
-                const subStats: StatGroup[] = Object.entries(subStatMap).map(([stat, chars]) => ({
+                let subStats: StatGroup[] = Object.entries(subStatMap).map(([stat, chars]) => ({
                     stat,
                     characters: chars
                 }));
+
+                // フィルタリングロジック: 選択されたメインステータスに基づいてサブステータスをソート
+                const currentSelection = selectedMainStats[set.id];
+                if (currentSelection) {
+                    const targetSlot = slots.find(s => s.slotName === currentSelection.slot);
+                    const targetStat = targetSlot?.stats.find(s => s.stat === currentSelection.stat);
+
+                    if (targetStat) {
+                        const targetChars = new Set(targetStat.characters);
+
+                        subStats.sort((a, b) => {
+                            // aのサブステータス行にターゲットキャラが含まれているか
+                            const aHasTarget = a.characters.some(char => targetChars.has(char));
+                            // bのサブステータス行にターゲットキャラが含まれているか
+                            const bHasTarget = b.characters.some(char => targetChars.has(char));
+
+                            if (aHasTarget && !bHasTarget) return -1;
+                            if (!aHasTarget && bHasTarget) return 1;
+                            return 0;
+                        });
+                    }
+                }
 
                 data.push({
                     id: set.id,
@@ -156,7 +203,7 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
         });
 
         return data;
-    }, [characters, activeTab, targetSets]);
+    }, [characters, activeTab, targetSets, selectedMainStats]);
 
     return (
         <div className="reverse-lookup-container">
@@ -188,6 +235,8 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                     const prevSet = index > 0 ? breakdownData[index - 1] : null;
                     const showSeparator = prevSet && set.group !== prevSet.group;
 
+                    const currentSelection = selectedMainStats[set.id];
+
                     return (
                         <React.Fragment key={set.id}>
                             {showSeparator && <hr className="group-separator" />}
@@ -209,26 +258,33 @@ export const RelicReverseLookup: React.FC<RelicReverseLookupProps & { onNavigate
                                                 <div className="section-title">{slot.slotName}</div>
                                                 <div className="stat-rows">
                                                     {slot.stats.length > 0 ? (
-                                                        slot.stats.map(statGroup => (
-                                                            <div key={statGroup.stat} className="stat-row">
-                                                                <div className="stat-name">{statGroup.stat}</div>
-                                                                <div className="char-list">
-                                                                    {statGroup.characters.map((char, idx) => (
-                                                                        <span
-                                                                            key={`${char}-${idx}`}
-                                                                            className="char-tag clickable"
-                                                                            onClick={(e) => {
-                                                                                e.stopPropagation();
-                                                                                const charId = set.charIdMap?.[char];
-                                                                                if (charId) onNavigateToCharacter(charId);
-                                                                            }}
-                                                                        >
-                                                                            {char}
-                                                                        </span>
-                                                                    ))}
+                                                        slot.stats.map(statGroup => {
+                                                            const isSelected = currentSelection?.slot === slot.slotName && currentSelection?.stat === statGroup.stat;
+                                                            return (
+                                                                <div
+                                                                    key={statGroup.stat}
+                                                                    className={`stat-row selectable ${isSelected ? 'selected' : ''}`}
+                                                                    onClick={() => handleMainStatClick(set.id, slot.slotName, statGroup.stat)}
+                                                                >
+                                                                    <div className="stat-name">{statGroup.stat}</div>
+                                                                    <div className="char-list">
+                                                                        {statGroup.characters.map((char, idx) => (
+                                                                            <span
+                                                                                key={`${char}-${idx}`}
+                                                                                className="char-tag clickable"
+                                                                                onClick={(e) => {
+                                                                                    e.stopPropagation();
+                                                                                    const charId = set.charIdMap?.[char];
+                                                                                    if (charId) onNavigateToCharacter(charId);
+                                                                                }}
+                                                                            >
+                                                                                {char}
+                                                                            </span>
+                                                                        ))}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        ))
+                                                            );
+                                                        })
                                                     ) : (
                                                         <div className="empty-row">指定なし</div>
                                                     )}
