@@ -1,13 +1,16 @@
 {
   "name": "hsr-relic-helper",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "dist-electron/main.js",
   "description": "HSR Relic Helper Application",
-  "author": "User",
+  "author": "AkikazeKaede",
   "build": {
     "appId": "com.hsr.relichelper",
-    "productName": "HSR Relic Helper",
+    "productName": "HSR-relicHelper",
+    "nsis": {
+      "artifactName": "${productName}_Setup.${ext}"
+    },
     "win": {
       "target": "nsis"
     },

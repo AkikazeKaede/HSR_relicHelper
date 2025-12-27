@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, dialog } from 'electron';
 import path from 'path';
 import fs from 'fs/promises';
+import { DEFAULT_RELICS } from './defaults';
 
 // インストール/アンインストール時にWindows上でショートカットを作成/削除する処理
 // if (require('electron-squirrel-startup')) {
@@ -131,7 +132,18 @@ ipcMain.handle('load-relics', async () => {
         return { success: true, data };
     } catch (error: any) {
         if (error.code === 'ENOENT') {
-            return { success: true, data: null }; // ファイルがまだ存在しない
+            try {
+                // ファイルが存在しない場合はデフォルト値を保存して返す
+                const userDataPath = app.getPath('userData');
+                const filePath = path.join(userDataPath, RELIC_DATA_FILE);
+                const defaultData = JSON.stringify(DEFAULT_RELICS, null, 2);
+                await fs.writeFile(filePath, defaultData, 'utf-8');
+                return { success: true, data: defaultData };
+            } catch (writeError) {
+                console.error('Failed to write default relic data:', writeError);
+                // 書けなくてもデフォルトデータは返す
+                return { success: true, data: JSON.stringify(DEFAULT_RELICS) };
+            }
         }
         console.error('Failed to load relic data:', error);
         return { success: false, error: String(error) };
