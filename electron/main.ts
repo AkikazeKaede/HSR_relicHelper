@@ -9,6 +9,14 @@ import fs from 'fs/promises';
 
 const DATA_FILE = 'hsr-relic-helper-data.json';
 
+const getTodayDateString = () => {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    return `${yyyy}${mm}${dd}`;
+};
+
 const createWindow = () => {
     // ブラウザウィンドウを作成
     const mainWindow = new BrowserWindow({
@@ -23,10 +31,15 @@ const createWindow = () => {
 
     // 本番環境ではアプリのindex.htmlを読み込む
     // 開発環境ではViteの開発サーバーURLを読み込む
-    if (process.env.NODE_ENV === 'development') {
+    const isDev = process.env.NODE_ENV === 'development';
+
+    if (isDev) {
         mainWindow.loadURL('http://localhost:5173');
         mainWindow.webContents.openDevTools();
     } else {
+        // メニューバーを完全に無効化（Altキーでも表示されないようにする）
+        // 本番環境のみ適用
+        mainWindow.setMenu(null);
         mainWindow.loadFile(path.join(__dirname, '../dist/index.html'));
     }
 };
@@ -62,7 +75,7 @@ ipcMain.handle('load-data', async () => {
 ipcMain.handle('export-data', async (_, data: string) => {
     const { filePath } = await dialog.showSaveDialog({
         title: '設定をエクスポート',
-        defaultPath: 'hsr-relic-helper-backup.json',
+        defaultPath: `HSR_RelicHelper_キャラ_${getTodayDateString()}.json`,
         filters: [{ name: 'JSON Files', extensions: ['json'] }]
     });
 
@@ -128,7 +141,7 @@ ipcMain.handle('load-relics', async () => {
 ipcMain.handle('export-relics', async (_, data: string) => {
     const { filePath } = await dialog.showSaveDialog({
         title: '遺物データをエクスポート',
-        defaultPath: 'hsr-relic-data.json',
+        defaultPath: `HSR_RelicHelper_遺物マスタ_${getTodayDateString()}.json`,
         filters: [{ name: 'JSON Files', extensions: ['json'] }]
     });
 

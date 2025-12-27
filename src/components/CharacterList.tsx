@@ -16,7 +16,7 @@ interface CharacterListProps {
 
 const renderWeightedStats = (stats: WeightedStat[]): React.ReactNode => {
     if (!stats || stats.length === 0) return '指定なし';
-    
+
     return (
         <span className="weighted-stats">
             {stats.map((ws, i) => (
@@ -88,20 +88,20 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
 
     const handleSort = () => {
         if (dragItem.current === null || dragOverItem.current === null) return;
-        
+
         // Create a deep copy of the array to modify
         const _characters = [...characters];
-        
+
         // Remove the dragged item
         const draggedItemContent = _characters.splice(dragItem.current, 1)[0];
-        
+
         // Insert it at the new position
         _characters.splice(dragOverItem.current, 0, draggedItemContent);
-        
+
         // Update refs
         dragItem.current = dragOverItem.current;
         dragOverItem.current = null;
-        
+
         // Update state
         onReorder(_characters);
     };
@@ -116,16 +116,16 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
         // e.dataTransfer.setDragImage(ghost, 0, 0);
     };
 
-    const onDragEnter = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    const onDragEnter = (index: number) => {
         if (dragItem.current === null) return;
         dragOverItem.current = index;
-        
+
         // Optional: Live reordering visuals (requires careful state management)
         // For simple list, we can just highlight the target or actually swap
         // Let's try attempting swap here for better UX, but usually 'dragOver' is where you detect position
-        
+
         if (dragItem.current !== index) {
-             handleSort();
+            handleSort();
         }
     };
 
@@ -264,7 +264,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                         </>
                     ) : reorderMode ? (
                         <>
-                             <div className="reorder-controls-info">
+                            <div className="reorder-controls-info">
                                 ドラッグして並び替え
                             </div>
                             <button className="action-button primary" onClick={toggleReorderMode}>並び替え完了</button>
@@ -299,7 +299,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                 className={`character-list-item ${selectedId === char.id ? 'selected' : ''} ${reorderMode ? 'draggable' : ''}`}
                                 draggable={reorderMode}
                                 onDragStart={(e) => onDragStart(e, index)}
-                                onDragEnter={(e) => onDragEnter(e, index)}
+                                onDragEnter={() => onDragEnter(index)}
                                 onDragEnd={onDragEnd}
                                 onDragOver={onDragOver}
                                 onClick={() => {
