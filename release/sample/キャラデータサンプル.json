@@ -1,0 +1,1765 @@
+[
+  {
+    "characterName": "調和主人公",
+    "targetRelicSets": [
+      "Watchmaker"
+    ],
+    "targetPlanarSets": [
+      "Talia",
+      "Kalpagni"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "BreakEffect",
+        "operator": ">"
+      }
+    ],
+    "id": "af522499-e228-47a8-beb8-10dfa764d1c3",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "記憶主人公",
+    "targetRelicSets": [
+      "Savior",
+      "Passerby"
+    ],
+    "targetPlanarSets": [
+      "Omphalos",
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritDMG",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      }
+    ],
+    "id": "d0217983-fb55-47be-a879-70929876c277",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "キュレネ",
+    "targetRelicSets": [
+      "Messenger",
+      "Sacerdos",
+      "Warlord"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": ">="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "EffectRes",
+        "operator": ">"
+      }
+    ],
+    "id": "152db77a-f08e-4b86-8997-7fe4d1f0689c",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ヒアンシー",
+    "targetRelicSets": [
+      "Warlord"
+    ],
+    "targetPlanarSets": [
+      "GiantTree"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "OutgoingHealing",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "EffectRes",
+        "operator": ">"
+      },
+      {
+        "stat": "HP",
+        "operator": ">"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      }
+    ],
+    "id": "19730e43-cef7-46ef-af0f-7255ab797cc9",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "キャストリス",
+    "targetRelicSets": [
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "BoneCollection"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritDMG",
+          "operator": "-"
+        },
+        {
+          "stat": "CritRate",
+          "operator": ">"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        },
+        {
+          "stat": "QuantumDMG",
+          "operator": ">"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "HP",
+        "operator": ">"
+      }
+    ],
+    "id": "d56b76ca-ff50-45e3-8a4c-5bfafd56510b",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "刃",
+    "targetRelicSets": [
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "BoneCollection"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "WindDMG",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": ">"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "HP",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "HP",
+        "operator": ">"
+      }
+    ],
+    "id": "5ef773c3-1f75-4887-8c9d-50dbc740218d",
+    "updatedAt": 1766239126023
+  },
+  {
+    "characterName": "飲月",
+    "targetRelicSets": [
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "LiveRoom",
+      "Rutilant"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "ImaginaryDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "b99674a2-1404-470c-84c1-f3851afe661e",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "黄泉",
+    "targetRelicSets": [
+      "Pioneer"
+    ],
+    "targetPlanarSets": [
+      "Izumo"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "LightningDMG",
+          "operator": ">"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "7c6ab07f-6ed9-4eef-97c4-f38d2d4ae4ab",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "飛霄",
+    "targetRelicSets": [
+      "Eagle",
+      "WindSoaring"
+    ],
+    "targetPlanarSets": [
+      "Duran"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "WindDMG",
+          "operator": "-"
+        },
+        {
+          "stat": "Attack",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "e98fc844-589a-44ad-a1fb-7845a5627587",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "アーチャー",
+    "targetRelicSets": [
+      "Genius",
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "Rutilant",
+      "LiveRoom"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": ">="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Speed",
+          "operator": ">"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "QuantumDMG",
+          "operator": ">"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "9951bc10-5eeb-40b8-a66e-852374b6c467",
+    "updatedAt": 1766238568646
+  },
+  {
+    "characterName": "姫子",
+    "targetRelicSets": [
+      "GrandDuke"
+    ],
+    "targetPlanarSets": [
+      "Firmament",
+      "Sigonia"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "FireDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "2d763a9d-abda-4b85-893e-6f9e5a1e17c6",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ヘルタ",
+    "targetRelicSets": [
+      "GrandDuke"
+    ],
+    "targetPlanarSets": [
+      "Sigonia"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Speed",
+          "operator": ">"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "IceDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "1a58fd87-65ba-4da9-8dda-5c9363dcae95",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "青雀",
+    "targetRelicSets": [
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "Rutilant"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": ">="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "QuantumDMG",
+          "operator": ">"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "5925b52b-51d4-493c-9601-0362ee1a9336",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "雪衣",
+    "targetRelicSets": [
+      "Genius"
+    ],
+    "targetPlanarSets": [
+      "Talia"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": ">"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        },
+        {
+          "stat": "Attack",
+          "operator": ">"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "BreakEffect",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "BreakEffect",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "572f2d84-a6c4-46c3-8a63-2fb9f5811b42",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "モゼ",
+    "targetRelicSets": [
+      "Pioneer"
+    ],
+    "targetPlanarSets": [
+      "Izumo"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": ">"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "LightningDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "e5182039-a3b4-4f75-857b-fed3a531f9ba",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ブローニャ(ルアン餅)",
+    "targetRelicSets": [
+      "Passerby"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritDMG",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "BreakEffect",
+        "operator": "-"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      }
+    ],
+    "id": "7333fa4b-ca1a-4b31-b68e-9146f8ea723c",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ルアン",
+    "targetRelicSets": [
+      "Watchmaker"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "BreakEffect",
+        "operator": "-"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "8c0ea79b-fa3f-47f0-93df-0bb89ba6c69a",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "花火",
+    "targetRelicSets": [
+      "Sacerdos"
+    ],
+    "targetPlanarSets": [
+      "Keel"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritDMG",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      }
+    ],
+    "id": "14fbd637-420f-4e7c-86a8-0e20ff5a0654",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ロビン",
+    "targetRelicSets": [
+      "Musketeer",
+      "Prisoner",
+      "WindSoaring"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "8fe664d5-dea9-47a1-9144-119cb254082e",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "サンデー",
+    "targetRelicSets": [
+      "Sacerdos"
+    ],
+    "targetPlanarSets": [
+      "Keel"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritDMG",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": ">"
+      },
+      {
+        "stat": "EffectRes",
+        "operator": "="
+      }
+    ],
+    "id": "12444595-51a6-4866-8aeb-f8cf228359da",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "停雲",
+    "targetRelicSets": [
+      "Sacerdos"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Defense",
+          "operator": "="
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Defense",
+          "operator": "="
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "Defense",
+        "operator": ">"
+      },
+      {
+        "stat": "HP",
+        "operator": "="
+      }
+    ],
+    "id": "26ad0b1d-32f9-499e-a422-0ddecd4376dc",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "寒鴉",
+    "targetRelicSets": [
+      "Messenger",
+      "Sacerdos",
+      "Warlord"
+    ],
+    "targetPlanarSets": [
+      "Lushaka"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      }
+    ],
+    "id": "3df1717c-1b8e-4cf3-b722-b95891b254cc",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "巡狩なのか",
+    "targetRelicSets": [
+      "Eagle",
+      "Musketeer"
+    ],
+    "targetPlanarSets": [
+      "Rutilant",
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Speed",
+          "operator": "="
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "ImaginaryDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Speed",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "b29b9339-4e88-4f34-ad08-44eed3d77869",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "銀狼",
+    "targetRelicSets": [
+      "Eagle"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "QuantumDMG",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "CritRate",
+        "operator": ">"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "EffectHitRate",
+        "operator": ">"
+      }
+    ],
+    "id": "3306b9ad-7771-465a-a54a-ae32d0116b33",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "ペラ",
+    "targetRelicSets": [
+      "Eagle"
+    ],
+    "targetPlanarSets": [
+      "Vonwacq"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "EffectHitRate",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "Defense",
+        "operator": ">"
+      },
+      {
+        "stat": "HP",
+        "operator": "="
+      }
+    ],
+    "id": "55491d44-af52-4a2f-ad56-4f26a8a09f06",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "クラーラ",
+    "targetRelicSets": [
+      "Poet"
+    ],
+    "targetPlanarSets": [
+      "Duran",
+      "Keel"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "CritRate",
+          "operator": "-"
+        },
+        {
+          "stat": "CritDMG",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": ">"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "PhysicalDMG",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": ">"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "CritRate",
+        "operator": "-"
+      },
+      {
+        "stat": "CritDMG",
+        "operator": "="
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      },
+      {
+        "stat": "EffectRes",
+        "operator": ">"
+      }
+    ],
+    "id": "78cfc642-c606-4fc4-b7a3-5a8b6447e10c",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "符玄",
+    "targetRelicSets": [
+      "Guard",
+      "Longevous",
+      "Messenger",
+      "Knight"
+    ],
+    "targetPlanarSets": [
+      "Keel"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "EffectRes",
+        "operator": "-"
+      },
+      {
+        "stat": "HP",
+        "operator": ">"
+      },
+      {
+        "stat": "Defense",
+        "operator": "="
+      }
+    ],
+    "id": "a29e8cc5-810e-4767-82a7-f0e92e95e5b9",
+    "updatedAt": 1766229781230
+  },
+  {
+    "characterName": "丹恒・騰荒",
+    "targetRelicSets": [
+      "Hermit"
+    ],
+    "targetPlanarSets": [
+      "Lushaka",
+      "Keel"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "Speed",
+          "operator": ">="
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "Attack",
+          "operator": "-"
+        },
+        {
+          "stat": "EnergyRegenRate",
+          "operator": ">"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Attack",
+        "operator": "-"
+      },
+      {
+        "stat": "Speed",
+        "operator": "="
+      }
+    ],
+    "id": "3d47d2d1-b1e5-4573-b206-8bd6a1b7d110",
+    "updatedAt": 1766239003755
+  },
+  {
+    "characterName": "羅刹",
+    "targetRelicSets": [
+      "Passerby",
+      "Warlord"
+    ],
+    "targetPlanarSets": [
+      "Keel",
+      "GiantTree"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "OutgoingHealing",
+          "operator": "-"
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "Speed",
+        "operator": "-"
+      },
+      {
+        "stat": "EffectRes",
+        "operator": ">"
+      },
+      {
+        "stat": "Attack",
+        "operator": ">"
+      }
+    ],
+    "id": "75f31688-d518-439a-8a49-df5019f44b11",
+    "updatedAt": 1766238736912
+  },
+  {
+    "characterName": "ギャラガー",
+    "targetRelicSets": [
+      "Warlord"
+    ],
+    "targetPlanarSets": [
+      "Keel",
+      "Kalpagni",
+      "GiantTree"
+    ],
+    "mainStats": {
+      "body": [
+        {
+          "stat": "OutgoingHealing",
+          "operator": "-"
+        },
+        {
+          "stat": "Defense",
+          "operator": ">="
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "feet": [
+        {
+          "stat": "Speed",
+          "operator": "-"
+        }
+      ],
+      "planarSphere": [
+        {
+          "stat": "Defense",
+          "operator": "-"
+        },
+        {
+          "stat": "HP",
+          "operator": "="
+        }
+      ],
+      "linkRope": [
+        {
+          "stat": "EnergyRegenRate",
+          "operator": "-"
+        }
+      ]
+    },
+    "subStats": [
+      {
+        "stat": "EffectRes",
+        "operator": "-"
+      },
+      {
+        "stat": "BreakEffect",
+        "operator": ">"
+      },
+      {
+        "stat": "Speed",
+        "operator": ">"
+      }
+    ],
+    "id": "d4702d00-df5b-42e2-aa40-58be4ab55748",
+    "updatedAt": 1766238821398
+  }
+]
