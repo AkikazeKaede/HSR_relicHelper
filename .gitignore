@@ -11,7 +11,9 @@ node_modules
 # Build output
 dist
 dist-electron
-release
+release/*
+!release/HSR-relicHelper_Setup.exe
+!release/sample/
 dist-ssr
 *.local
 

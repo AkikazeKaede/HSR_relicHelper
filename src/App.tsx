@@ -8,32 +8,9 @@ import type { CharacterFilter, RelicSet, WeightedStat, LegacyCharacterFilter } f
 
 type View = 'filter' | 'reverse' | 'settings';
 
-// 初回実行時のダミーデータ
-const initialCharacters: CharacterFilter[] = [
-  {
-    id: '1',
-    characterName: '丹恒・飲月',
-    updatedAt: Date.now(),
-    targetRelicSets: ['Musketeer', 'Wastelander'],
-    targetPlanarSets: ['Rutilant'],
-    mainStats: {
-      body: [{ stat: 'CritRate', operator: '-' }, { stat: 'CritDMG', operator: '>' }],
-      feet: [{ stat: 'Attack', operator: '-' }, { stat: 'Speed', operator: '>' }],
-      planarSphere: [{ stat: 'ImaginaryDMG', operator: '-' }, { stat: 'Attack', operator: '>' }],
-      linkRope: [{ stat: 'Attack', operator: '-' }, { stat: 'EnergyRegenRate', operator: '>' }]
-    },
-    subStats: [
-      { stat: 'CritRate', operator: '-' },
-      { stat: 'CritDMG', operator: '>' },
-      { stat: 'Attack', operator: '>' },
-      { stat: 'Speed', operator: '>' }
-    ]
-  }
-];
-
 function App() {
   const [currentView, setCurrentView] = useState<View>('filter');
-  const [characters, setCharacters] = useState<CharacterFilter[]>(initialCharacters);
+  const [characters, setCharacters] = useState<CharacterFilter[]>([]);
 
   // 遺物データの状態
   const [relicSets, setRelicSets] = useState<RelicSet[]>([]);
