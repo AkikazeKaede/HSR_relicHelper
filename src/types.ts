@@ -29,6 +29,20 @@ export interface WeightedStat {
     operator: StatOperator;
 }
 
+
+export type StatusType = 'Base' | 'Additional';
+export type StatusOperation = 'Add' | 'Multiply';
+
+export interface StatusItem {
+    id: string;
+    name: string;
+    value: number;
+    type: StatusType;
+    operation: StatusOperation;
+    enabled?: boolean; // Default true
+    isInBattle?: boolean; // Default true (false means displayed on status screen)
+}
+
 export interface CharacterFilter {
     id: string;
     characterName: string;
@@ -51,11 +65,14 @@ export interface CharacterFilter {
     // Target Sub Stats (Ordered list with operators)
     subStats: WeightedStat[];
 
+    // Status Memo items
+    statusMemo?: StatusItem[];
+
     note?: string;
 }
 
 // For migration purposes
-export interface LegacyCharacterFilter extends Omit<CharacterFilter, 'mainStats' | 'subStats'> {
+export interface LegacyCharacterFilter extends Omit<CharacterFilter, 'mainStats' | 'subStats' | 'statusMemo'> {
     mainStats: {
         body: StatType[];
         feet: StatType[];

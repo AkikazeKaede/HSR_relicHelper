@@ -146,6 +146,14 @@ function App() {
     }
   };
 
+  const handleUpdateCharacter = (updatedChar: CharacterFilter) => {
+    setCharacters(prev => prev.map(c =>
+      c.id === updatedChar.id
+        ? { ...updatedChar, updatedAt: Date.now() } // Update timestamp
+        : c
+    ));
+  };
+
   const handleNavigateToCharacter = (charId: string) => {
     setHighlightedCharacterId(charId);
     setCurrentView('filter');
@@ -242,6 +250,7 @@ function App() {
               highlightedCharacterId={highlightedCharacterId}
               onImport={handleAppendData}
               onReorder={setCharacters}
+              onUpdateCharacter={handleUpdateCharacter}
             />
             <CharacterEditDialog
               isOpen={isDialogOpen}
