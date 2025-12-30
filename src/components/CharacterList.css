@@ -95,6 +95,7 @@
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .character-list-item {
@@ -139,6 +140,13 @@
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.2s ease-out;
+    min-width: 0;
+}
+
+.character-memo-pane {
+    width: 380px;
+    flex-shrink: 0;
+    height: 100%;
 }
 
 .detail-header {
@@ -311,4 +319,19 @@
 
 .character-list-item.draggable:hover .drag-handle {
     color: var(--text-primary);
+}
+
+/* Add media query for responsive layout if needed, but User is on Desktop likely */
+@media (max-width: 1200px) {
+    .master-detail-container {
+        gap: var(--spacing-md);
+    }
+
+    .character-list-pane {
+        width: 250px;
+    }
+
+    .character-memo-pane {
+        width: 320px;
+    }
 }

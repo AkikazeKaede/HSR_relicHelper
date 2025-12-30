@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import type { CharacterFilter, RelicSet, WeightedStat, StatusItem } from '../types';
 import { STAT_LABELS } from '../constants';
+import { StatusMemoPanel } from './StatusMemoPanel';
 import { StatusMemoDialog } from './StatusMemoDialog';
-import { calculateStatus } from '../utils/statusCalculation';
 import './CharacterList.css';
 
 interface CharacterListProps {
@@ -247,38 +247,6 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
         }
     };
 
-    const renderStatusMemoSection = (char: CharacterFilter) => {
-        const hasMemo = char.statusMemo && char.statusMemo.length > 0;
-        const result = hasMemo ? calculateStatus(char.statusMemo!) : { baseTotal: 0, finalTotal: 0 };
-
-        return (
-            <div className="detail-section">
-                <h4>
-                    ステータスメモ (速度計算)
-                    <button
-                        className="action-button secondary"
-                        style={{ marginLeft: '10px', fontSize: '0.8rem', padding: '2px 8px' }}
-                        onClick={() => setStatusMemoDialogCharacterId(char.id)}
-                    >
-                        {hasMemo ? '編集' : '追加'}
-                    </button>
-                </h4>
-                {hasMemo ? (
-                    <div className="text-list">
-                        <div className="text-item">
-                            最終値: <span style={{ fontFamily: 'Roboto Mono', fontWeight: 'bold', color: 'var(--accent-primary)' }}>{result.finalTotal.toFixed(1)}</span>
-                            <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginLeft: '8px' }}>
-                                (基礎: {result.baseTotal.toFixed(1)})
-                            </span>
-                        </div>
-                    </div>
-                ) : (
-                    <span className="empty-text">未設定</span>
-                )}
-            </div>
-        );
-    };
-
     return (
         <div className="character-list-container">
             <div className="list-header">
@@ -372,7 +340,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                     )}
                 </div>
 
-                {/* 右ペイン: キャラクター詳細 */}
+                {/* 中央ペイン: キャラクター詳細 */}
                 <div className="character-detail-pane">
                     {selectedCharacter ? (
                         <div className="detail-content">
@@ -383,8 +351,6 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                                     <button className="delete-btn" onClick={() => onDelete(selectedCharacter.id)}>削除</button>
                                 </div>
                             </div>
-
-                            {renderStatusMemoSection(selectedCharacter)}
 
                             <div className="detail-section">
                                 <h4>トンネル遺物</h4>
@@ -459,6 +425,16 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                         </div>
                     )}
                 </div>
+
+                {/* 右ペイン: ステータスメモ */}
+                {selectedCharacter && (
+                    <div className="character-memo-pane">
+                        <StatusMemoPanel
+                            initialItems={selectedCharacter.statusMemo || []}
+                            onEdit={() => setStatusMemoDialogCharacterId(selectedCharacter.id)}
+                        />
+                    </div>
+                )}
             </div>
 
             {statusMemoDialogCharacterId && (
