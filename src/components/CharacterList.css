@@ -132,7 +132,6 @@
 
 /* Right Pane: Details */
 .character-detail-pane {
-    flex: 1;
     background-color: var(--bg-secondary);
     border-radius: 12px;
     border: 1px solid var(--border-color);
@@ -140,12 +139,12 @@
     overflow-y: auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     animation: fadeIn 0.2s ease-out;
-    min-width: 0;
+    min-width: 300px;
 }
 
 .character-memo-pane {
-    width: 380px;
-    flex-shrink: 0;
+    flex: 2;
+    min-width: 380px;
     height: 100%;
 }
 
@@ -332,6 +331,6 @@
     }
 
     .character-memo-pane {
-        width: 320px;
+        min-width: 320px;
     }
 }
