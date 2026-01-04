@@ -66,10 +66,16 @@ export interface CharacterFilter {
     subStats: WeightedStat[];
 
     // Status Memo items
-    statusMemo?: StatusItem[];
+    statusMemo?: StatusMemoMap;
 
     note?: string;
 }
+
+export type MemoStatusType = 'Speed' | 'CritRate' | 'EffectRes' | 'BreakEffect' | 'EffectHitRate';
+
+export type StatusMemoMap = {
+    [key in MemoStatusType]?: StatusItem[];
+};
 
 // For migration purposes
 export interface LegacyCharacterFilter extends Omit<CharacterFilter, 'mainStats' | 'subStats' | 'statusMemo'> {

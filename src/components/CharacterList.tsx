@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import type { CharacterFilter, RelicSet, WeightedStat, StatusItem } from '../types';
+import type { CharacterFilter, RelicSet, WeightedStat, StatusItem, StatusMemoMap, MemoStatusType } from '../types';
 import { STAT_LABELS } from '../constants';
 import { StatusMemoPanel } from './StatusMemoPanel';
 import { StatusMemoDialog } from './StatusMemoDialog';
@@ -38,6 +38,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
     const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
     const [statusMemoDialogCharacterId, setStatusMemoDialogCharacterId] = useState<string | null>(null);
+    const [initialStatusTab, setInitialStatusTab] = useState<MemoStatusType | undefined>(undefined);
     const listRef = useRef<HTMLDivElement>(null);
     const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -235,16 +236,21 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
         }
     };
 
-    const handleSaveStatusMemo = (items: StatusItem[]) => {
+    const handleSaveStatusMemo = (memoMap: StatusMemoMap) => {
         if (!statusMemoDialogCharacterId) return;
 
         const char = characters.find(c => c.id === statusMemoDialogCharacterId);
         if (char) {
             onUpdateCharacter({
                 ...char,
-                statusMemo: items
+                statusMemo: memoMap
             });
         }
+    };
+
+    const openStatusMemoDialog = (characterId: string, tab?: MemoStatusType) => {
+        setStatusMemoDialogCharacterId(characterId);
+        setInitialStatusTab(tab || 'Speed');
     };
 
     return (
@@ -430,8 +436,8 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                 {selectedCharacter && (
                     <div className="character-memo-pane">
                         <StatusMemoPanel
-                            initialItems={selectedCharacter.statusMemo || []}
-                            onEdit={() => setStatusMemoDialogCharacterId(selectedCharacter.id)}
+                            memoMap={selectedCharacter.statusMemo || {}}
+                            onEdit={(tab) => openStatusMemoDialog(selectedCharacter.id, tab)}
                         />
                     </div>
                 )}
@@ -439,7 +445,8 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
 
             {statusMemoDialogCharacterId && (
                 <StatusMemoDialog
-                    initialItems={characters.find(c => c.id === statusMemoDialogCharacterId)?.statusMemo || []}
+                    initialMemo={characters.find(c => c.id === statusMemoDialogCharacterId)?.statusMemo || {}}
+                    initialTab={initialStatusTab}
                     onSave={handleSaveStatusMemo}
                     onClose={() => setStatusMemoDialogCharacterId(null)}
                 />

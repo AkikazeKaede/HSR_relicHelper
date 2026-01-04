@@ -1,48 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import type { StatusItem } from '../types';
+import type { StatusItem, StatusMemoMap, MemoStatusType } from '../types';
 import { calculateStatus } from '../utils/statusCalculation';
 import './StatusMemoDialog.css';
 
 interface StatusMemoDialogProps {
-    initialItems: StatusItem[];
-    onSave: (items: StatusItem[]) => void;
+    initialMemo: StatusMemoMap;
+    initialTab?: MemoStatusType;
+    onSave: (memo: StatusMemoMap) => void;
     onClose: () => void;
 }
 
-export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems, onSave, onClose }) => {
+const STAT_TYPES: { id: MemoStatusType; label: string }[] = [
+    { id: 'Speed', label: '速度' },
+    { id: 'CritRate', label: '会心率' },
+    { id: 'BreakEffect', label: '撃破特効' },
+    { id: 'EffectHitRate', label: '効果命中' },
+    { id: 'EffectRes', label: '効果抵抗' },
+];
+
+export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialMemo, initialTab, onSave, onClose }) => {
     // Local type to allow string input (for handling "-", empty string, etc.)
     interface DraftStatusItem extends Omit<StatusItem, 'value'> {
         value: number | string;
     }
 
-    const [items, setItems] = useState<DraftStatusItem[]>([]);
+    const [activeStatus, setActiveStatus] = useState<MemoStatusType>(initialTab || 'Speed');
+    const [memoMap, setMemoMap] = useState<Record<MemoStatusType, DraftStatusItem[]>>({
+        Speed: [],
+        CritRate: [],
+        BreakEffect: [],
+        EffectHitRate: [],
+        EffectRes: []
+    });
 
-    // ... (DraftStatusType definition assumed same)
-
-    // ... (useEffect logic: update initialization of Base Value to specific defaults)
+    // Load initial data
     useEffect(() => {
-        if (!initialItems || initialItems.length === 0) {
-            setItems([
-                { id: crypto.randomUUID(), name: '基礎値', value: 0, type: 'Base', operation: 'Add', enabled: true, isInBattle: false }
-            ]);
-        } else {
-            const loaded = JSON.parse(JSON.stringify(initialItems));
-            const hasBase = loaded.some((i: any) => i.type === 'Base');
-            if (!hasBase) {
-                setItems([
-                    { id: crypto.randomUUID(), name: '基礎値', value: 0, type: 'Base', operation: 'Add', enabled: true, isInBattle: false },
-                    ...loaded
-                ]);
+        const newMap: Record<MemoStatusType, DraftStatusItem[]> = {
+            Speed: [],
+            CritRate: [],
+            BreakEffect: [],
+            EffectHitRate: [],
+            EffectRes: []
+        };
+
+        STAT_TYPES.forEach(stat => {
+            const items = initialMemo[stat.id];
+            if (!items || items.length === 0) {
+                newMap[stat.id] = [
+                    { id: crypto.randomUUID(), name: '基礎値', value: 0, type: 'Base', operation: 'Add', enabled: true, isInBattle: false }
+                ];
             } else {
-                setItems(loaded);
+                const loaded = JSON.parse(JSON.stringify(items));
+                const hasBase = loaded.some((i: any) => i.type === 'Base');
+                if (!hasBase) {
+                    newMap[stat.id] = [
+                        { id: crypto.randomUUID(), name: '基礎値', value: 0, type: 'Base', operation: 'Add', enabled: true, isInBattle: false },
+                        ...loaded
+                    ];
+                } else {
+                    newMap[stat.id] = loaded;
+                }
             }
-        }
-    }, [initialItems]);
+        });
+        setMemoMap(newMap);
+    }, [initialMemo]);
 
-    const baseValueItemIndex = items.findIndex(i => i.type === 'Base');
-    const baseValueItem = baseValueItemIndex >= 0 ? items[baseValueItemIndex] : null;
+    const currentItems = memoMap[activeStatus];
 
-    const modifiers = items.filter((_, idx) => idx !== baseValueItemIndex);
+    const setCurrentItems = (items: DraftStatusItem[]) => {
+        setMemoMap(prev => ({
+            ...prev,
+            [activeStatus]: items
+        }));
+    };
+
+    const baseValueItemIndex = currentItems.findIndex(i => i.type === 'Base');
+    const baseValueItem = baseValueItemIndex >= 0 ? currentItems[baseValueItemIndex] : null;
+
+    const modifiers = currentItems.filter((_, idx) => idx !== baseValueItemIndex);
     const baseModifiers = modifiers.filter(i => i.type === 'Base');
     const additionalModifiers = modifiers.filter(i => i.type === 'Additional');
 
@@ -54,7 +89,7 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
         }));
     };
 
-    const result = calculateStatus(getStrictItems(items));
+    const result = calculateStatus(getStrictItems(currentItems));
 
     const handleBaseValueChange = (val: string) => {
         // Allow empty string or minus sign, otherwise parse
@@ -72,9 +107,9 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
 
     const updateModifierValue = (index: number, val: number | string) => {
         if (index >= 0) {
-            const newItems = [...items];
+            const newItems = [...currentItems];
             newItems[index] = { ...newItems[index], value: val };
-            setItems(newItems);
+            setCurrentItems(newItems);
         }
     };
 
@@ -88,11 +123,11 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
             enabled: true,
             isInBattle: true // Default Checked
         };
-        setItems([...items, newItem]);
+        setCurrentItems([...currentItems, newItem]);
     };
 
     const updateModifier = (id: string, field: keyof StatusItem, value: any) => {
-        setItems(items.map(item =>
+        setCurrentItems(currentItems.map(item =>
             item.id === id ? { ...item, [field]: value } : item
         ));
     };
@@ -101,23 +136,25 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
     const updateModifierVal = (id: string, val: string) => {
         // Allow empty string or minus sign
         if (val === '' || val === '-') {
-            setItems(items.map(item => item.id === id ? { ...item, value: val } : item));
+            setCurrentItems(currentItems.map(item => item.id === id ? { ...item, value: val } : item));
             return;
         }
         const num = parseFloat(val);
-        setItems(items.map(item => item.id === id ? { ...item, value: !isNaN(num) ? num : val } : item));
+        setCurrentItems(currentItems.map(item => item.id === id ? { ...item, value: !isNaN(num) ? num : val } : item));
     };
 
     const removeModifier = (id: string) => {
-        setItems(items.filter(item => item.id !== id));
+        setCurrentItems(currentItems.filter(item => item.id !== id));
     };
 
     const handleSave = () => {
-        onSave(getStrictItems(items));
+        const finalMap: StatusMemoMap = {};
+        STAT_TYPES.forEach(stat => {
+            finalMap[stat.id] = getStrictItems(memoMap[stat.id]);
+        });
+        onSave(finalMap);
         onClose();
     };
-
-    // ...
 
     // Helper for checkboxes
     const renderModifierRow = (mod: any) => (
@@ -175,9 +212,8 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
         <div className="status-memo-overlay" onClick={onClose}>
             <div className="status-memo-dialog" onClick={e => e.stopPropagation()}>
                 <div className="status-memo-header">
-                    <h3>ステータスメモ (速度計算など)</h3>
+                    <h3>ステータスメモ</h3>
                     <button className="remove-btn" onClick={onClose}>
-                        {/* Close Icon */}
                         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" strokeWidth="2" fill="none">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
                             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -185,45 +221,69 @@ export const StatusMemoDialog: React.FC<StatusMemoDialogProps> = ({ initialItems
                     </button>
                 </div>
 
-                <div className="status-memo-content">
-                    {/* 1. Base Value (No Flags, assumed Enabled and !InBattle) */}
-                    <div className="memo-section">
-                        <h4>基礎ステータス (Base)</h4>
-                        <div className="memo-row base-value-row">
-                            <label>基礎値</label>
-                            <input
-                                type="number"
-                                className="memo-input"
-                                value={baseValueItem ? baseValueItem.value : 0}
-                                onChange={e => handleBaseValueChange(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="memo-list">
-                            {baseModifiers.map(mod => renderModifierRow(mod))}
-                            <button className="add-item-btn" onClick={() => addModifier('Base')}>+ 補正を追加</button>
-                        </div>
+                <div className="status-memo-body">
+                    {/* Sidebar */}
+                    <div className="status-sidebar">
+                        {STAT_TYPES.map(stat => (
+                            <button
+                                key={stat.id}
+                                className={`sidebar-item ${activeStatus === stat.id ? 'active' : ''}`}
+                                onClick={() => setActiveStatus(stat.id)}
+                            >
+                                {stat.label}
+                            </button>
+                        ))}
                     </div>
 
-                    {/* 2. Additional Modifiers */}
-                    <div className="memo-section">
-                        <h4>追加ステータス (Additional)</h4>
-                        <div className="memo-list">
-                            {additionalModifiers.map(mod => renderModifierRow(mod))}
-                            <button className="add-item-btn" onClick={() => addModifier('Additional')}>+ 補正を追加</button>
+                    {/* Content Area */}
+                    <div className="status-content-area">
+                        <div className="status-memo-content">
+                            {/* 1. Base Value (No Flags, assumed Enabled and !InBattle) */}
+                            <div className="memo-section">
+                                <h4>{STAT_TYPES.find(s => s.id === activeStatus)?.label} - 基礎ステータス (Base)</h4>
+                                <div className="memo-row base-value-row">
+                                    <label>基礎値</label>
+                                    <input
+                                        type="number"
+                                        className="memo-input"
+                                        value={baseValueItem ? baseValueItem.value : 0}
+                                        onChange={e => handleBaseValueChange(e.target.value)}
+                                    />
+                                </div>
+
+                                <div className="memo-list">
+                                    {baseModifiers.map(mod => renderModifierRow(mod))}
+                                    <button className="add-item-btn" onClick={() => addModifier('Base')}>+ 補正を追加</button>
+                                </div>
+                            </div>
+
+                            {/* 2. Additional Modifiers */}
+                            <div className="memo-section">
+                                <h4>追加ステータス (Additional)</h4>
+                                <div className="memo-list">
+                                    {additionalModifiers.map(mod => renderModifierRow(mod))}
+                                    <button className="add-item-btn" onClick={() => addModifier('Additional')}>+ 補正を追加</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div className="status-memo-footer">
                     <div className="result-group">
-                        <div className="result-display-sub">
-                            <span className="result-label-sub">ステータス画面:</span>
-                            <span className="result-value-sub">{result.statusScreenFinal.toFixed(1)}</span>
+                        <div className="result-display">
+                            <span className="result-label">ステータス画面:</span>
+                            <span className="result-value">
+                                {result.statusScreenFinal.toFixed(1)}
+                                {activeStatus !== 'Speed' && '%'}
+                            </span>
                         </div>
-                        <div className="result-display-main">
+                        <div className="result-display">
                             <span className="result-label">最終値 (戦闘中):</span>
-                            <span className="result-value-inline">{result.finalTotal.toFixed(1)}</span>
+                            <span className="result-value">
+                                {result.finalTotal.toFixed(1)}
+                                {activeStatus !== 'Speed' && '%'}
+                            </span>
                         </div>
                     </div>
                     <div className="footer-actions">

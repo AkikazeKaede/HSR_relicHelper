@@ -181,8 +181,17 @@ function App() {
       }));
     };
 
+    // StatusMemoの移行 (旧: StatusItem[] -> 新: StatusMemoMap)
+    let statusMemoMap: any = undefined;
+    if (Array.isArray((char as any).statusMemo)) {
+      statusMemoMap = { Speed: (char as any).statusMemo };
+    } else {
+      statusMemoMap = (char as any).statusMemo;
+    }
+
     return {
       ...legacy,
+      statusMemo: statusMemoMap,
       mainStats: {
         body: ConvertMainStats(legacy.mainStats.body),
         feet: ConvertMainStats(legacy.mainStats.feet),
