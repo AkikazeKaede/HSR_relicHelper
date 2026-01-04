@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import type { CharacterFilter, RelicSet, WeightedStat, StatusItem, StatusMemoMap, MemoStatusType } from '../types';
+import type { CharacterFilter, RelicSet, WeightedStat, StatusMemoMap, MemoStatusType } from '../types';
 import { STAT_LABELS } from '../constants';
 import { StatusMemoPanel } from './StatusMemoPanel';
 import { StatusMemoDialog } from './StatusMemoDialog';
