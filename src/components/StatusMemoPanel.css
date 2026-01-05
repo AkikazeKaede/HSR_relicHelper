@@ -1,0 +1,98 @@
+.status-memo-panel {
+    background-color: #1e1e1e;
+    border-left: 1px solid #333;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+}
+
+.status-memo-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #252526;
+}
+
+.status-memo-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.status-memo-content.read-only {
+    padding: 16px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.status-memo-card-list {
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping */
+    gap: 8px;
+}
+
+.status-memo-card {
+    width: 5rem;
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 12px 16px;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.status-memo-card:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+    border-color: #444;
+}
+
+.card-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.card-value {
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #4CAF50;
+    font-family: 'Roboto Mono', monospace;
+}
+
+.empty-memo-result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.add-status-btn {
+    background-color: transparent;
+    border: 1px dashed #666;
+    color: #888;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.add-status-btn:hover {
+    border-color: #888;
+    color: #e0e0e0;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.action-button.compact {
+    padding: 4px 10px;
+    font-size: 12px;
+}

@@ -8,6 +8,7 @@
 }
 
 .reverse-lookup-container {
+    width: fit-content;
     padding: 0;
     /* Padding handled by view-content */
     height: 100%;

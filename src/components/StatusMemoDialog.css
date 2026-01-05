@@ -1,0 +1,323 @@
+.status-memo-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.status-memo-dialog {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    width: 1000px;
+    min-width: 800px;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    color: #e0e0e0;
+}
+
+.status-memo-body {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+/* Sidebar */
+.status-sidebar {
+    width: 150px;
+    background-color: #252526;
+    border-right: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.sidebar-item {
+    padding: 12px 16px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #a0a0a0;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s, color 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-item:hover {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+}
+
+.sidebar-item.active {
+    background-color: #37373d;
+    color: #fff;
+    border-left-color: #007acc;
+}
+
+/* Content Area */
+.status-content-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.status-memo-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status-memo-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-memo-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.memo-section {
+    margin-bottom: 24px;
+}
+
+.memo-section h4 {
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    color: #aaa;
+    border-bottom: 1px solid #333;
+    padding-bottom: 6px;
+}
+
+.memo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.memo-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Slightly tighter gap */
+    margin-bottom: 8px;
+    background: #2a2a2a;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.memo-item-row.disabled {
+    opacity: 0.6;
+    background: #222;
+}
+
+/* Checkbox Groups */
+.checkbox-group {
+    display: flex;
+    flex-direction: row;
+    /* Horizontal alignment */
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    /* Revert to 1rem */
+    color: #e0e0e0;
+    /* Brighter for readability */
+    user-select: none;
+}
+
+.checkbox-label:hover {
+    color: #fff;
+}
+
+.checkbox-text {
+    line-height: 1;
+}
+
+/* Inputs */
+.memo-input {
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
+    color: #e0e0e0;
+    padding: 6px 10px;
+    /* Slightly larger padding */
+    font-size: 1rem;
+    /* Revert to 1rem */
+}
+
+.memo-input[type="number"]::-webkit-inner-spin-button,
+.memo-input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.name-input {
+    flex: 1;
+    min-width: 140px;
+    /* Increased */
+}
+
+.value-input {
+    width: 80px;
+    /* Slightly wider for larger font */
+    text-align: right;
+}
+
+/* Operation Toggle Button */
+.operation-toggle-btn {
+    width: 80px;
+    /* Wider */
+    padding: 6px 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    /* Slightly larger */
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.operation-toggle-btn.add {
+    background-color: #2d2d2d;
+    color: #b0b0b0;
+}
+
+.operation-toggle-btn.multiply {
+    background-color: #0e3a5a;
+    color: #61dafb;
+    border-color: #1a5c85;
+}
+
+.unit-label {
+    width: 20px;
+    text-align: center;
+    color: #ccc;
+    font-size: 1rem;
+}
+
+.unit-label.hidden {
+    visibility: hidden;
+}
+
+.remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    /* Larger hit area */
+    border-radius: 4px;
+    line-height: 0;
+}
+
+.remove-btn:hover {
+    background-color: #333;
+    color: #ff6b6b;
+}
+
+.add-item-btn {
+    width: 100%;
+    background-color: #2d2d2d;
+    border: 1px dashed #444;
+    color: #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background-color 0.2s;
+    font-size: 1rem;
+}
+
+.add-item-btn:hover {
+    background-color: #333;
+    color: #e0e0e0;
+}
+
+.status-memo-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #333;
+    background-color: #252526;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.result-group {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+}
+
+.result-display {
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+.result-value {
+    margin-left: 8px;
+    color: #4CAF50;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.footer-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-button {
+    padding: 6px 16px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.action-button.primary {
+    background-color: #007acc;
+    color: white;
+}
+
+.action-button.primary:hover {
+    background-color: #0062a3;
+}
+
+.action-button.secondary {
+    background-color: #3c3c3c;
+    color: #e0e0e0;
+}
+
+.action-button.secondary:hover {
+    background-color: #4a4a4a;
+}

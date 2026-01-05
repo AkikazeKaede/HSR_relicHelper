@@ -146,6 +146,14 @@ function App() {
     }
   };
 
+  const handleUpdateCharacter = (updatedChar: CharacterFilter) => {
+    setCharacters(prev => prev.map(c =>
+      c.id === updatedChar.id
+        ? { ...updatedChar, updatedAt: Date.now() } // Update timestamp
+        : c
+    ));
+  };
+
   const handleNavigateToCharacter = (charId: string) => {
     setHighlightedCharacterId(charId);
     setCurrentView('filter');
@@ -173,8 +181,17 @@ function App() {
       }));
     };
 
+    // StatusMemoの移行 (旧: StatusItem[] -> 新: StatusMemoMap)
+    let statusMemoMap: any = undefined;
+    if (Array.isArray((char as any).statusMemo)) {
+      statusMemoMap = { Speed: (char as any).statusMemo };
+    } else {
+      statusMemoMap = (char as any).statusMemo;
+    }
+
     return {
       ...legacy,
+      statusMemo: statusMemoMap,
       mainStats: {
         body: ConvertMainStats(legacy.mainStats.body),
         feet: ConvertMainStats(legacy.mainStats.feet),
@@ -242,6 +259,7 @@ function App() {
               highlightedCharacterId={highlightedCharacterId}
               onImport={handleAppendData}
               onReorder={setCharacters}
+              onUpdateCharacter={handleUpdateCharacter}
             />
             <CharacterEditDialog
               isOpen={isDialogOpen}

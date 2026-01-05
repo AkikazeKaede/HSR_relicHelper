@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
-import type { CharacterFilter, RelicSet, WeightedStat } from '../types';
+import type { CharacterFilter, RelicSet, WeightedStat, StatusMemoMap, MemoStatusType } from '../types';
 import { STAT_LABELS } from '../constants';
+import { StatusMemoPanel } from './StatusMemoPanel';
+import { StatusMemoDialog } from './StatusMemoDialog';
 import './CharacterList.css';
 
 interface CharacterListProps {
@@ -29,12 +31,14 @@ const renderWeightedStats = (stats: WeightedStat[]): React.ReactNode => {
     );
 };
 
-export const CharacterList: React.FC<CharacterListProps & { onImport: (data: CharacterFilter[]) => void }> = ({ characters, relicSets, planarSets, onAdd, onEdit, onDelete, highlightedCharacterId, onImport, onReorder }) => {
+export const CharacterList: React.FC<CharacterListProps & { onImport: (data: CharacterFilter[]) => void, onUpdateCharacter: (character: CharacterFilter) => void }> = ({ characters, relicSets, planarSets, onAdd, onEdit, onDelete, highlightedCharacterId, onImport, onReorder, onUpdateCharacter }) => {
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [selectionMode, setSelectionMode] = useState(false);
     const [reorderMode, setReorderMode] = useState(false);
     const [checkedIds, setCheckedIds] = useState<Set<string>>(new Set());
     const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
+    const [statusMemoDialogCharacterId, setStatusMemoDialogCharacterId] = useState<string | null>(null);
+    const [initialStatusTab, setInitialStatusTab] = useState<MemoStatusType | undefined>(undefined);
     const listRef = useRef<HTMLDivElement>(null);
     const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
@@ -109,20 +113,11 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
     const onDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
         dragItem.current = index;
         e.dataTransfer.effectAllowed = "move";
-        // Ghost image setting if needed
-        // const ghost = e.currentTarget.cloneNode(true) as HTMLElement;
-        // ghost.style.opacity = "1";
-        // document.body.appendChild(ghost);
-        // e.dataTransfer.setDragImage(ghost, 0, 0);
     };
 
     const onDragEnter = (index: number) => {
         if (dragItem.current === null) return;
         dragOverItem.current = index;
-
-        // Optional: Live reordering visuals (requires careful state management)
-        // For simple list, we can just highlight the target or actually swap
-        // Let's try attempting swap here for better UX, but usually 'dragOver' is where you detect position
 
         if (dragItem.current !== index) {
             handleSort();
@@ -241,6 +236,23 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
         }
     };
 
+    const handleSaveStatusMemo = (memoMap: StatusMemoMap) => {
+        if (!statusMemoDialogCharacterId) return;
+
+        const char = characters.find(c => c.id === statusMemoDialogCharacterId);
+        if (char) {
+            onUpdateCharacter({
+                ...char,
+                statusMemo: memoMap
+            });
+        }
+    };
+
+    const openStatusMemoDialog = (characterId: string, tab?: MemoStatusType) => {
+        setStatusMemoDialogCharacterId(characterId);
+        setInitialStatusTab(tab || 'Speed');
+    };
+
     return (
         <div className="character-list-container">
             <div className="list-header">
@@ -334,7 +346,7 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                     )}
                 </div>
 
-                {/* 右ペイン: キャラクター詳細 */}
+                {/* 中央ペイン: キャラクター詳細 */}
                 <div className="character-detail-pane">
                     {selectedCharacter ? (
                         <div className="detail-content">
@@ -419,7 +431,26 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                         </div>
                     )}
                 </div>
+
+                {/* 右ペイン: ステータスメモ */}
+                {selectedCharacter && (
+                    <div className="character-memo-pane">
+                        <StatusMemoPanel
+                            memoMap={selectedCharacter.statusMemo || {}}
+                            onEdit={(tab) => openStatusMemoDialog(selectedCharacter.id, tab)}
+                        />
+                    </div>
+                )}
             </div>
+
+            {statusMemoDialogCharacterId && (
+                <StatusMemoDialog
+                    initialMemo={characters.find(c => c.id === statusMemoDialogCharacterId)?.statusMemo || {}}
+                    initialTab={initialStatusTab}
+                    onSave={handleSaveStatusMemo}
+                    onClose={() => setStatusMemoDialogCharacterId(null)}
+                />
+            )}
         </div>
     );
 };
