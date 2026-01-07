@@ -432,13 +432,26 @@ export const CharacterList: React.FC<CharacterListProps & { onImport: (data: Cha
                     )}
                 </div>
 
-                {/* 右ペイン: ステータスメモ */}
+                {/* 右ペイン: ステータスメモ & 備考 */}
                 {selectedCharacter && (
                     <div className="character-memo-pane">
                         <StatusMemoPanel
                             memoMap={selectedCharacter.statusMemo || {}}
                             onEdit={(tab) => openStatusMemoDialog(selectedCharacter.id, tab)}
                         />
+                        <div className="character-remarks-area">
+                            <textarea
+                                className="remarks-textarea"
+                                value={selectedCharacter.note || ''}
+                                onChange={(e) => {
+                                    onUpdateCharacter({
+                                        ...selectedCharacter,
+                                        note: e.target.value
+                                    });
+                                }}
+                                placeholder="キャラクターに関するメモ（遺物の厳選状況や運用方針など）"
+                            />
+                        </div>
                     </div>
                 )}
             </div>

@@ -22,7 +22,7 @@ export const StatusMemoPanel: React.FC<StatusMemoPanelProps> = ({ memoMap, onEdi
 
     return (
         <div className="status-memo-panel">
-            <div className="status-memo-header">
+            <div className="status-memo-panel-header">
                 <h3>ステータスメモ</h3>
             </div>
 
