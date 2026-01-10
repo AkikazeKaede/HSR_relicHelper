@@ -191,7 +191,10 @@ export const CharacterEditDialog: React.FC<CharacterEditDialogProps> = ({ isOpen
             targetRelicSets,
             targetPlanarSets,
             mainStats,
-            subStats
+            subStats,
+            // Preserve existing data that is not edited in this dialog
+            note: initialData?.note,
+            statusMemo: initialData?.statusMemo
         });
         onClose();
     };
