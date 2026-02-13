@@ -167,6 +167,18 @@ export const DEFAULT_RELICS = {
             "name": "星の光を隠した隠者",
             "type": "Cavern",
             "group": 14
+        },
+        {
+            "id": "MagicalGirl",
+            "name": "功績輝く魔法少女",
+            "type": "Cavern",
+            "group": 15
+        },
+        {
+            "id": "Diviner",
+            "name": "天命に従う旅のト者",
+            "type": "Cavern",
+            "group": 15
         }
     ],
     "planarSets": [
