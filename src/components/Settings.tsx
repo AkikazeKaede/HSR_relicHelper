@@ -84,7 +84,7 @@ export const Settings: React.FC<SettingsProps> = ({ relicSets, planarSets, onUpd
 
             <div className="settings-section">
                 <h3>アプリケーション情報</h3>
-                <p>バージョン: 1.0.3</p>
+                <p>バージョン: 1.0.4</p>
                 <p>作者: Gemini 3 Pro</p>
             </div>
 

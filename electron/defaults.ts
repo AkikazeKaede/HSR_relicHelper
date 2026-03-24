@@ -325,6 +325,18 @@ export const DEFAULT_RELICS = {
             "name": "天国@配信ルーム",
             "type": "Planar",
             "group": 12
+        },
+        {
+            "id": "Punklorde",
+            "name": "ステージゼロ：パンクロード",
+            "type": "Planar",
+            "group": 13
+        },
+        {
+            "id": "ThousandStars",
+            "name": "千の星が集う街",
+            "type": "Planar",
+            "group": 13
         }
     ]
 };
