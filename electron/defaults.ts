@@ -179,6 +179,30 @@ export const DEFAULT_RELICS = {
             "name": "天命に従う旅のト者",
             "type": "Cavern",
             "group": 15
+        },
+        {
+            "id": "Astronomer",
+            "name": "星巡るナビゲーター「シケン」",
+            "type": "Cavern",
+            "group": 16
+        },
+        {
+            "id": "MasterSmith",
+            "name": "神業を探求する名匠",
+            "type": "Cavern",
+            "group": 16
+        },
+        {
+            "id": "DreamActor",
+            "name": "星灯す夢芝居の伶人",
+            "type": "Cavern",
+            "group": 17
+        },
+        {
+            "id": "Heretic",
+            "name": "禁断の果実を貪る異端者",
+            "type": "Cavern",
+            "group": 17
         }
     ],
     "planarSets": [
@@ -337,6 +361,18 @@ export const DEFAULT_RELICS = {
             "name": "千の星が集う街",
             "type": "Planar",
             "group": 13
+        },
+        {
+            "id": "Anchorage",
+            "name": "墜星の出航地",
+            "type": "Planar",
+            "group": 14
+        },
+        {
+            "id": "Institute",
+            "name": "宇宙生命科学研究院",
+            "type": "Planar",
+            "group": 14
         }
     ]
 };
